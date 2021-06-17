@@ -1,20 +1,23 @@
-
-public class Student {
-	private int id;
-	private String name;
+class Student {
+	private int token;
+	private String fname;
 	private double cgpa;
-	public Student(int id, String name, double cgpa) {
-		this.id = id;
-		this.name = name;
+
+	public Student(int id, String fname, double cgpa) {
+		this.token = id;
+		this.fname = fname;
 		this.cgpa = cgpa;
 	}
-	public int getID() {
-		return id;
+
+	public int getToken() {
+		return token;
 	}
+
 	public String getName() {
-		return name;
+		return fname;
 	}
-	public double getCGPA() {
+
+	public double getCgpa() {
 		return cgpa;
 	}
 }
