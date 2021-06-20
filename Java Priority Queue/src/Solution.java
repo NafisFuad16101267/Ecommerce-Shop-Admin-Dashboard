@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+/*
+ * Create the Student and Priorities classes here.
+ */
+
 
 public class Solution {
     private final static Scanner scan = new Scanner(System.in);
