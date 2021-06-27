@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.consumeapi.exception.NotChromeException;
 import com.example.consumeapi.model.User;
 import com.example.consumeapi.repository.UserRepository;
 import com.example.consumeapi.service.UserService;
@@ -31,8 +33,9 @@ public class UserController {
 
 	// Get All Notes
 	@GetMapping("/users")
-	public List<User> getAllUsers() {
-		return userRepository.findAll();
+	public List<User> getAllUsers(@RequestHeader(value="User-Agent") String userAgent) 
+		throws NotChromeException{
+		return userService.getalluserService(userAgent);
 	}
 
 	// Create a new Note
@@ -43,15 +46,16 @@ public class UserController {
 
 	@PostMapping("/users/input")
 	public User createOutsideUsers(@Valid @RequestBody User user) {
-		userService.UsecreateOutsideUsers(user);
+		userService.usecreateOutsideUsers(user);
 		return null;
 	}
 
 	// Get a Single Note
 	@GetMapping("/users/filter")
 	public List<User> getUserById(@RequestParam(defaultValue = "-1") long userId,
-			@RequestParam(defaultValue = "null") String isCompleted) {
-		return userService.getUserByIdService(userId,isCompleted);	
+			@RequestParam(defaultValue = "null") String isCompleted,
+			@RequestHeader(value="User-Agent") String userAgent) throws NotChromeException{
+		return userService.getUserByIdService(userId,isCompleted,userAgent);	
 	}
 
 	// Update a User
