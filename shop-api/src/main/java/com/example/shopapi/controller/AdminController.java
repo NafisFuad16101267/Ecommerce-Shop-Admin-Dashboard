@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
 import com.example.shopapi.model.Products;
+import com.example.shopapi.model.User;
 import com.example.shopapi.service.AdminService;
 
 @RestController
@@ -70,5 +71,10 @@ public class AdminController {
 	@GetMapping("/orders")
 	public List<Order> getAllOrders() {
 		return adminService.getAllOrdersService();
+	}
+	
+	@GetMapping("/users")
+	public List<User> getAllUsers() {
+		return adminService.getAllUsersService();
 	}
 }

@@ -10,9 +10,12 @@ import com.example.shopapi.exception.ResourceNotFoundException;
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
 import com.example.shopapi.model.Products;
+import com.example.shopapi.model.User;
 import com.example.shopapi.repository.OrderRepository;
+import com.example.shopapi.repository.PaymentRepository;
 import com.example.shopapi.repository.ProdcutsCatagoryRepository;
 import com.example.shopapi.repository.ProdcutsRepository;
+import com.example.shopapi.repository.UserRepository;
 
 @Service
 public class AdminService {
@@ -22,6 +25,10 @@ public class AdminService {
 	ProdcutsCatagoryRepository productCatagoryRepositroy;
 	@Autowired
 	OrderRepository orderRepositroy;
+	@Autowired
+	UserRepository userRepositroy;
+	@Autowired
+	PaymentRepository paymentRepository;
 
 	
 	public List<ProductCatagory> getAllProductCatagoryService() {
@@ -100,5 +107,9 @@ public class AdminService {
 	
 	public List<Order> getAllOrdersService() {
 		return orderRepositroy.findAll();
+	}
+	
+	public List<User> getAllUsersService() {
+		return userRepositroy.findAll();
 	}
 }

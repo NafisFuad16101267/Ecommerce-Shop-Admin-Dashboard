@@ -9,30 +9,51 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Products {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	private Long price;
+	private String name;
 	private Long size;
 	private String color;
 	private Long stock;
 	@ManyToOne
 	private ProductCatagory productCatagory;
 	@ManyToMany(mappedBy = "products")
+	@JsonIgnore
 	private List<Order> orders;
 
 	public Products() {
 
 	}
+	
+	public Products(String name, Long size, String color, Long stock, ProductCatagory productCatagory) {
+		this.name = name;
+		this.size = size;
+		this.color = color;
+		this.stock = stock;
+		this.productCatagory = productCatagory;
+	}
 
-	public Long getProductId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setProductId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Long getSize() {

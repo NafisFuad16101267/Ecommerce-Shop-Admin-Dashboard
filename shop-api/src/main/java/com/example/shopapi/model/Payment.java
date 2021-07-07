@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Payment {
 
@@ -16,6 +18,7 @@ public class Payment {
 	private Long transactionId;
 	private boolean completed;
 	@OneToOne
+	@JsonIgnore
 	private Order order;
 
 	public Payment() {
@@ -24,6 +27,22 @@ public class Payment {
 
 	public Long getPaymentId() {
 		return id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	public void setPaymentId(Long id) {
