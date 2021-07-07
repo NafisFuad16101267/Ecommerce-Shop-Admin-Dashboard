@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ import com.example.shopapi.exception.ResourceNotFoundException;
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.Payment;
 import com.example.shopapi.model.ProductCatagory;
+import com.example.shopapi.model.ProductPage;
 import com.example.shopapi.model.Products;
 import com.example.shopapi.model.User;
 import com.example.shopapi.repository.OrderRepository;
@@ -44,8 +49,11 @@ public class UserService {
 		return prodcutsRepository.findProductsByCatagory(name, color, size);
 	}
 
-	public List<Products> getAllProductsService() {
-		return prodcutsRepository.findAll();
+	public Page<Products> getAllProductsService(ProductPage productpage) {
+		Sort sort = Sort.by(productpage.getSortDirection(), productpage.getSortBy());
+		Pageable pageable = PageRequest.of(productpage.getPageNumber(), 
+				productpage.getPageSize(), sort);
+		return prodcutsRepository.findAll(pageable);
 	}
 	
 	public List<Products> getAllProductsByName(String name){

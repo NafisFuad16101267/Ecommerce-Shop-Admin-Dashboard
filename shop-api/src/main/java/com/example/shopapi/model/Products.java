@@ -28,6 +28,14 @@ public class Products {
 	@JsonIgnore
 	private List<Order> orders;
 
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
 	public Products() {
 
 	}
