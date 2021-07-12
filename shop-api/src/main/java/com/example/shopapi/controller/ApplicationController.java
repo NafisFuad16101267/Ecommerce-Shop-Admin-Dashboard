@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
 import com.example.shopapi.model.Products;
+import com.example.shopapi.repository.ProdcutsRepository;
 
 
 @Controller
@@ -18,6 +20,8 @@ public class ApplicationController {
 	
 	@Autowired
 	AdminController adminController;
+	@Autowired
+	ProdcutsRepository prodcutsRepository;
 	
 	@GetMapping("/index")
 	public String goHome(){
@@ -35,10 +39,11 @@ public class ApplicationController {
 		return new ModelAndView("index", model);
 	}
 	
-	@GetMapping("/UpdateProducts")
-	public ModelAndView updateProducts(Map<String, Object> model) {
-		 
-		return null;
+	@GetMapping("/UpdateProducts/{id}")
+	public ModelAndView updateProducts(Map<String, Object> model, @PathVariable(value = "id") Long id) {
+		Products product = prodcutsRepository.getById(id);
+		model.put("product", product);
+		return new ModelAndView("updateProducts",model);
 	}
 }
 
