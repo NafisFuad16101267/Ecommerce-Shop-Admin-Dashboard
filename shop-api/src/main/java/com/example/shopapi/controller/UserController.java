@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
 import com.example.shopapi.model.ProductPage;
+import com.example.shopapi.model.ProductVarient;
 import com.example.shopapi.model.Products;
 import com.example.shopapi.model.User;
 import com.example.shopapi.repository.ProdcutsRepository;
+import com.example.shopapi.repository.ProductVarientRepository;
 import com.example.shopapi.service.UserService;
 
 @RestController
@@ -33,10 +35,13 @@ public class UserController {
 	UserService userService;
 	@Autowired
 	ProdcutsRepository prodcutsRepository;
+	@Autowired
+	ProductVarientRepository productVarientRepository;
 	
 	@PostMapping("/register")
-	public User resgisterUser(@Valid @RequestBody User user) {
-		return userService.resgisterUserService(user);
+	public User resgisterUser(@Valid @RequestBody @RequestParam String userName, String userEmail, 
+			Boolean userType) {
+		return userService.resgisterUserService(userName,userEmail,userType);
 	}
 
 	@GetMapping("/products/filter")
@@ -78,5 +83,15 @@ public class UserController {
 		@RequestParam String paymentOption,
 		@RequestParam Long transactionId){
 		return userService.userPaymentService(orderId,paymentOption,transactionId);
+	}
+	
+	@GetMapping("/getAllvarient")
+	public List<ProductVarient> getProductByVarient() {
+		return productVarientRepository.findAll();
+	}
+	
+	@GetMapping("/getProductByVarient/{name}")
+	public List<Products> filterProductByVarient(@PathVariable(value = "name") String name) {
+		return userService.filterProductByVarientService(name);
 	}
 }

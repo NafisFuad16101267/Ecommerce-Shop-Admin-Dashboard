@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,6 +20,7 @@ public class Products {
 	private Long id;
 	private Long price;
 	private String name;
+	private String productIcon;
 	private Long size;
 	private String color;
 	private Long stock;
@@ -27,6 +29,25 @@ public class Products {
 	@ManyToMany(mappedBy = "products")
 	@JsonIgnore
 	private List<Order> orders;
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+	private List<ProductVarient> productVarient;
+
+	public String getProductIcon() {
+		return productIcon;
+	}
+
+	public void setProductIcon(String productIcon) {
+		this.productIcon = productIcon;
+	}
+
+	public List<ProductVarient> getProductVarient() {
+		return productVarient;
+	}
+
+	public void setProductVarient(List<ProductVarient> productVarient) {
+		this.productVarient = productVarient;
+	}
 
 	public Long getPrice() {
 		return price;

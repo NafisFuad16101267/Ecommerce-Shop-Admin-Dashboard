@@ -27,9 +27,17 @@ public class Order {
 	private User user;
 	@OneToOne(mappedBy = "order")
 	private Payment payment;
+	private Long totalPrice;
+
+	public Long getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Long totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
 	public Order() {
-
 	}
 
 	public void setId(Long id) {
