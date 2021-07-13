@@ -243,44 +243,19 @@
                   <p class="card-description">
                     Basic form elements
                   </p>
-                  {{#product}}
-                  <form class="forms-sample" action="/UpdateProducts" method="POST" name="products">
+                  {{#productCatagoty}}
+                  <form class="forms-sample" action="/UpdateProductCategory" method="POST" name="products">
                   	<div class="form-group">
                       <label for="id">Name</label>
                       <input type="text" class="form-control" id="id" name="id" value="{{id}}">
                     </div>
                   	<div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" name="name" value="{{name}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="price">Price</label>
-                      <input type="number" class="form-control" id="price" name="price" value="{{price}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="productCatagory">Catagory Id</label>
-                      <input type="number" class="form-control" id="productCatagory" name="productCatagory.id" value={{productCatagory.id}}>
-                    </div>
-                    <div class="form-group">
-                      <label for="productCatagory">Catagory Name</label>
-                      <input type="text" class="form-control" id="productCatagory" name="productCatagory.catagoryName" value="{{productCatagory.catagoryName}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="color">Color</label>
-                      <input type="text" class="form-control" id="color" name="color" value="{{color}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="stock">Stock</label>
-                      <input type="number" class="form-control" id="stock" name="stock" value="{{stock}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="productIcon">Product Icon Url</label>
-                      <input type="text" class="form-control" id="productIcon" name="productIcon" value="{{productIcon}}">
+                      <label for="catagoryName">Name</label>
+                      <input type="text" class="form-control" id="catagoryName" name="catagoryName" value="{{catagoryName}}">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
                     <button class="btn btn-light">Cancel</button>
-                  </form>
-                  {{/product}}
+                  {{/productCatagoty}}
                 </div>
               </div>
             </div>

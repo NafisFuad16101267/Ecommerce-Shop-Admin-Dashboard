@@ -32,8 +32,11 @@ public class AdminController {
 	AdminService adminService;
 
 	@PostMapping("/productCatagory")
-	public ProductCatagory createProductCatagory(@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagory) {
-		return adminService.createProductCatagoryService(productCatagory);
+	public ModelAndView createProductCatagory(@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagory,
+			Map<String, Object> model) {
+		adminService.createProductCatagoryService(productCatagory);
+		model.put("productCatagory",productCatagory);
+		return new ModelAndView("index", model);
 	}
 
 	@GetMapping("/productCatagory")
@@ -53,8 +56,9 @@ public class AdminController {
 	}
 
 	@PostMapping("/product")
-	public Products createNewProduct(@Valid @RequestBody @ModelAttribute("products") Products products) {
-		return adminService.createNewProductService(products);
+	public ModelAndView createNewProduct(@Valid @RequestBody @ModelAttribute("products") Products products) {
+		adminService.createNewProductService(products);
+		return new ModelAndView("redirect:/index");
 	}
 
 	@GetMapping("/product")
@@ -75,13 +79,15 @@ public class AdminController {
 	}
 
 	@PutMapping("/product/{id}")
-	public Products updatedProduct(@PathVariable(value = "id") Long id, @Valid @RequestBody Products product) {
-		return adminService.updateupdatedProductService(id, product);
+	public ModelAndView updatedProduct(@PathVariable(value = "id") Long id, @Valid @RequestBody Products product) {
+		adminService.updateupdatedProductService(id, product);
+		return new ModelAndView("redirect:/index");
 	}
 
 	@DeleteMapping("/product/{id}")
-	public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") Long id) {
-		return adminService.deleteProductService(id);
+	public ModelAndView deleteProduct(@PathVariable(value = "id") Long id) {
+		adminService.deleteProductService(id);
+		return new ModelAndView("redirect:/");
 	}
 
 	@GetMapping("/orders")

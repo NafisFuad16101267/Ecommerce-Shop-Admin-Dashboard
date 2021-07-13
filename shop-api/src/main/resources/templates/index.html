@@ -24,7 +24,7 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex justify-content-center">
         <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-          <a class="navbar-brand brand-logo" href="http://localhost:9090/newIndex"><img src="images/logo.svg" alt="logo"/></a>
+          <a class="navbar-brand brand-logo" href="/index"><img src="images/logo.svg" alt="logo"/></a>
           <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="mdi mdi-sort-variant"></span>
@@ -502,12 +502,13 @@
                             	<script>
 							    function sendDeleteProduct(event,prodId){
 							    	var xhttp = new XMLHttpRequest();
-							        event.preventDefault();
-							        xhttp.open("DELETE", "http://localhost:9090/admin/product/"+prodId, true);
+							        //event.preventDefault();
+							        xhttp.open("DELETE", "/admin/product/"+prodId, true);
 							        xhttp.send();
 							    }
 								</script>   
-                            	<a href="#">Update</a>
+                            	
+                            	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/UpdateProducts/{{id}}'">UPDATE</button>
                             </td>
                         </tr>
                       {{/products}}
@@ -547,7 +548,7 @@
 							    function sendDelete(event, orderId){
 							    	var xhttp = new XMLHttpRequest();
 							        event.preventDefault();
-							        xhttp.open("DELETE", "http://localhost:9090/user/order/"+orderId, true);
+							        xhttp.open("DELETE", "/user/order/"+orderId, true);
 							        xhttp.send();
 							    }
 							</script>  
@@ -585,11 +586,11 @@
 							    function sendDeleteCatagory(event, catagoryId){
 							    	var xhttp = new XMLHttpRequest();
 							        event.preventDefault();
-							        xhttp.open("DELETE", "http://localhost:9090/admin/productCatagory/"+catagoryId, true);
+							        xhttp.open("DELETE", "/admin/productCatagory/"+catagoryId, true);
 							        xhttp.send();
 							    }
 							</script>  
-                            	<a href="#">Update</a>
+                            	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/UpdateProductCategory/{{id}}'">UPDATE</button>
                             </td>
                         </tr>
                         {{/productCatagory}}
@@ -606,7 +607,7 @@
                   <p class="card-description">
                     Basic form layout
                   </p>
-                  <form class="forms-sample" action="http://localhost:9090/admin/product" method="POST" name="products">
+                  <form class="forms-sample" action="/admin/product" method="POST" name="products">
                     <div class="form-group">
                       <label for="name">Name</label>
                       <input type="text" class="form-control" id="name" name="name" placeholder="product name">
@@ -646,7 +647,7 @@
                   <p class="card-description">
                     Basic form layout
                   </p>
-                  <form class="forms-sample" action="http://localhost:9090/admin/productCatagory" method="POST" name="productCatagory">
+                  <form class="forms-sample" action="/admin/productCatagory" method="POST" name="productCatagory">
                     <div class="form-group">
                       <label for="catagoryName">Product Catagory</label>
                       <input type="text" class="form-control" id="catagoryName" name="catagoryName" placeholder="product catagory">

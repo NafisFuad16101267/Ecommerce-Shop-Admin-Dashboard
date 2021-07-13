@@ -3,16 +3,23 @@ package com.example.shopapi.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
 import com.example.shopapi.model.Products;
+import com.example.shopapi.repository.ProdcutsCatagoryRepository;
 import com.example.shopapi.repository.ProdcutsRepository;
+import com.example.shopapi.service.AdminService;
 
 
 @Controller
@@ -22,13 +29,12 @@ public class ApplicationController {
 	AdminController adminController;
 	@Autowired
 	ProdcutsRepository prodcutsRepository;
+	@Autowired
+	AdminService adminService;
+	@Autowired
+	ProdcutsCatagoryRepository prodcutsCatagoryRepository;
 	
 	@GetMapping("/index")
-	public String goHome(){
-		return "index";
-	}
-	
-	@GetMapping("/newIndex")
 	public ModelAndView getProducts(Map<String, Object> model) {
 		List<Products> products = adminController.getAllProduct();
 		List<Order> orders = adminController.getAllOrders();
@@ -44,6 +50,27 @@ public class ApplicationController {
 		Products product = prodcutsRepository.getById(id);
 		model.put("product", product);
 		return new ModelAndView("updateProducts",model);
+	}
+	
+	@PostMapping("/UpdateProducts")
+	public ModelAndView updateProductPage(Map<String, Object> model,@Valid @RequestBody @ModelAttribute("products") Products products) {
+		Products savedproduct = adminService.createNewProductService(products);
+		model.put("product", savedproduct);
+		return new ModelAndView("updateProducts",model);
+	}
+	
+	@GetMapping("/UpdateProductCategory/{id}")
+	public ModelAndView updateProductCategory(Map<String, Object> model, @PathVariable(value = "id") Long id) {
+		ProductCatagory productCatagoty = prodcutsCatagoryRepository.getById(id);
+		model.put("productCatagoty", productCatagoty);
+		return new ModelAndView("updateProductCatagory",model);
+	}
+	
+	@PostMapping("/UpdateProductCategory")
+	public ModelAndView updateProductCatagoryPage(Map<String, Object> model,@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagoty) {
+		ProductCatagory savedproductCatagoty = adminService.createProductCatagoryService(productCatagoty);
+		model.put("productCatagoty", savedproductCatagoty);
+		return new ModelAndView("updateProductCatagory",model);
 	}
 }
 
