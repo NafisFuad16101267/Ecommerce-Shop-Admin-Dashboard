@@ -17,14 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
 import com.example.shopapi.model.Products;
+import com.example.shopapi.model.User;
 import com.example.shopapi.repository.ProdcutsCatagoryRepository;
 import com.example.shopapi.repository.ProdcutsRepository;
 import com.example.shopapi.service.AdminService;
 
-
 @Controller
 public class ApplicationController {
-	
+
 	@Autowired
 	AdminController adminController;
 	@Autowired
@@ -33,45 +33,74 @@ public class ApplicationController {
 	AdminService adminService;
 	@Autowired
 	ProdcutsCatagoryRepository prodcutsCatagoryRepository;
-	
+
 	@GetMapping("/index")
 	public ModelAndView getProducts(Map<String, Object> model) {
 		List<Products> products = adminController.getAllProduct();
 		List<Order> orders = adminController.getAllOrders();
 		List<ProductCatagory> catagories = adminController.getAllProductCatagory();
-		model.put("products",products);
+		model.put("products", products);
 		model.put("orders", orders);
 		model.put("productCatagory", catagories);
 		return new ModelAndView("index", model);
 	}
-	
+
 	@GetMapping("/UpdateProducts/{id}")
 	public ModelAndView updateProducts(Map<String, Object> model, @PathVariable(value = "id") Long id) {
 		Products product = prodcutsRepository.getById(id);
 		model.put("product", product);
-		return new ModelAndView("updateProducts",model);
+		return new ModelAndView("updateProducts", model);
 	}
-	
+
 	@PostMapping("/UpdateProducts")
-	public ModelAndView updateProductPage(Map<String, Object> model,@Valid @RequestBody @ModelAttribute("products") Products products) {
+	public ModelAndView updateProductPage(Map<String, Object> model,
+			@Valid @RequestBody @ModelAttribute("products") Products products) {
 		Products savedproduct = adminService.createNewProductService(products);
 		model.put("product", savedproduct);
-		return new ModelAndView("updateProducts",model);
+		return new ModelAndView("updateProducts", model);
 	}
-	
+
 	@GetMapping("/UpdateProductCategory/{id}")
 	public ModelAndView updateProductCategory(Map<String, Object> model, @PathVariable(value = "id") Long id) {
 		ProductCatagory productCatagoty = prodcutsCatagoryRepository.getById(id);
 		model.put("productCatagoty", productCatagoty);
-		return new ModelAndView("updateProductCatagory",model);
+		return new ModelAndView("updateProductCatagory", model);
 	}
-	
-	@PostMapping("/UpdateProductCategory")
-	public ModelAndView updateProductCatagoryPage(Map<String, Object> model,@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagoty) {
+
+	@PostMapping("/Categories")
+	public ModelAndView updateProductCatagoryPage(Map<String, Object> model,
+			@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagoty) {
 		ProductCatagory savedproductCatagoty = adminService.createProductCatagoryService(productCatagoty);
-		model.put("productCatagoty", savedproductCatagoty);
-		return new ModelAndView("updateProductCatagory",model);
+		List<ProductCatagory> catagories = adminController.getAllProductCatagory();
+		model.put("productCatagory", catagories);
+		return new ModelAndView("categories", model);
+	}
+
+	@GetMapping("/Categories")
+	public ModelAndView getCategories(Map<String, Object> model) {
+		List<ProductCatagory> catagories = adminController.getAllProductCatagory();
+		model.put("productCatagory", catagories);
+		return new ModelAndView("categories", model);
+	}
+
+	@GetMapping("/productsList")
+	public ModelAndView getProductsList(Map<String, Object> model) {
+		List<Products> products = adminController.getAllProduct();
+		model.put("products", products);
+		return new ModelAndView("products", model);
+	}
+
+	@GetMapping("/ordersList")
+	public ModelAndView getOrdersList(Map<String, Object> model) {
+		List<Order> orders = adminController.getAllOrders();
+		model.put("orders", orders);
+		return new ModelAndView("orders", model);
+	}
+
+	@GetMapping("/usersList")
+	public ModelAndView getUsersList(Map<String, Object> model) {
+		List<User> user = adminController.getAllUsers();
+		model.put("user", user);
+		return new ModelAndView("user", model);
 	}
 }
-
-
