@@ -108,6 +108,39 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title">Product Category</p>
+                  <!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					  Create New Category
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <div class="card">
+				                <div class="card-body">
+				                  <h4 class="card-title">Product Category Input Form</h4>
+				                  <form class="forms-sample" action="/admin/productCatagory" method="POST" name="productCatagory">
+				                    <div class="form-group">
+				                      <label for="catagoryName">Product Catagory</label>
+				                      <input type="text" class="form-control" id="catagoryName" name="catagoryName" placeholder="product catagory">
+				                    </div>
+				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+				                    <button class="btn btn-light">Cancel</button>
+				                  </form>
+				                </div>
+				              </div>
+					      </div>
+					    </div>
+					  </div>
+					</div>
                   <div class="table-responsive">
                     <table id="recent-purchases-listing" class="table">
                       <th>
@@ -130,39 +163,6 @@
 							    }
 							</script>  
                             	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/UpdateProductCategory/{{id}}'">UPDATE</button>
-                            </td>
-                            <td>
-                            	<!-- Button trigger modal -->
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  									UPDATE
-								</button>
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-								  <div class="modal-dialog modal-dialog-centered" role="document">
-								    <div class="modal-content">
-								      <div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLongTitle">Update Form</h5>
-								        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          <span aria-hidden="true">&times;</span>
-								        </button>
-								      </div>
-								      <div class="modal-body">
-								        <form class="forms-sample" action="/Categories" method="POST" name="productCatagory">
-								        	<div class="form-group">
-                      							<label for="id">id</label>
-                      							<input type="text" class="form-control" id="id" name="id" value="{{id}}">
-                    						</div>
-								        	<div class="form-group">
-                      							<label for="catagoryName">Name</label>
-                      							<input type="text" class="form-control" id="catagoryName" name="catagoryName" value="{{catagoryName}}">
-                    						</div>
-                    						<button type="submit" class="btn btn-primary">Save changes</button>
-                    						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-								        </form>
-								      </div>
-								    </div>
-								  </div>
-								</div>
                             </td>
                         </tr>
                         {{/productCatagory}}

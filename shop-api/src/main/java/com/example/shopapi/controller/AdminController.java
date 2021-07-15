@@ -36,7 +36,7 @@ public class AdminController {
 			Map<String, Object> model) {
 		adminService.createProductCatagoryService(productCatagory);
 		model.put("productCatagory",productCatagory);
-		return new ModelAndView("index", model);
+		return new ModelAndView("redirect:/Categories");
 	}
 
 	@GetMapping("/productCatagory")
@@ -58,7 +58,7 @@ public class AdminController {
 	@PostMapping("/product")
 	public ModelAndView createNewProduct(@Valid @RequestBody @ModelAttribute("products") Products products) {
 		adminService.createNewProductService(products);
-		return new ModelAndView("redirect:/index");
+		return new ModelAndView("redirect:/productsList");
 	}
 
 	@GetMapping("/product")

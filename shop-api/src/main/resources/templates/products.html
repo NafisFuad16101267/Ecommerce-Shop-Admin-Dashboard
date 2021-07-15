@@ -92,6 +92,66 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title">Products</p>
+                  <!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					  Create New Product
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Product Category Input Form</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <div class="card">
+				                <div class="card-body">
+				                  <h4 class="card-title">Product Input Form</h4>
+				                  <p class="card-description">
+				                    Basic form layout
+				                  </p>
+				                  <form class="forms-sample" action="/admin/product" method="POST" name="products">
+				                    <div class="form-group">
+				                      <label for="name">Name</label>
+				                      <input type="text" class="form-control" id="name" name="name" placeholder="product name">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="price">Price</label>
+				                      <input type="number" class="form-control" id="price" name="price" placeholder="Price">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="productCatagory">Catagory Id</label>
+				                      <input type="text" class="form-control" id="productCatagory" name="productCatagory.id" placeholder="Product Catagory Id">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="productCatagory">Catagory Name</label>
+				                      <input type="text" class="form-control" id="productCatagory" name="productCatagory.catagoryName" placeholder="Product Catagory Name">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="color">Color</label>
+				                      <input type="text" class="form-control" id="color" name="color" placeholder="Color">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="stock">Stock</label>
+				                      <input type="number" class="form-control" id="stock" name="stock" placeholder="Stock">
+				                    </div>
+				                    <div class="form-group">
+				                      <label for="productIcon">Product Icon Url</label>
+				                      <input type="text" class="form-control" id="productIcon" name="productIcon" placeholder="Product Icon Url">
+				                    </div>
+				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+				                    <button class="btn btn-light">Cancel</button>
+				                  </form>
+				                </div>
+              				</div>
+              			  </div>
+					    </div>
+					  </div>
+					</div>
                   <div class="table-responsive">
                     <table id="recent-purchases-listing" class="table">
                       <th>
