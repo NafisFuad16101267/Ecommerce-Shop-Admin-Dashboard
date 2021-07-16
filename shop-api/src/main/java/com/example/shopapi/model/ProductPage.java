@@ -4,7 +4,7 @@ import org.springframework.data.domain.Sort;
 
 public class ProductPage {
 	private int pageNumber = 0;
-	private int PageSize = 10;
+	private int PageSize = 5;
 	private Sort.Direction sortDirection = Sort.Direction.ASC;
 	private String sortBy = "price";
 

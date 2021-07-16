@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css"> 
   <!-- endinject -->
   <link rel="shortcut icon" href="images/favicon.png" />
 </head>
@@ -152,24 +152,31 @@
 					    </div>
 					  </div>
 					</div>
-                  <div class="table-responsive">
-                    <table id="recent-purchases-listing" class="table">
-                      <th>
+              <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Products Table</h4>
+                  <p class="card-description">
+                    Add class <code>.table-bordered</code>
+                  </p>
+                  <div class="table-responsive pt-3">
+                    <table id="recent-purchases-listing" class="table table-bordered">
+                      <thead>
                         <tr>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>price</th>
-                            <th>Catagory Name</th>
-                            <th>color</th>
-                            <th>stock</th>
-                            <th>ProductIcon</th>
-                            <th>Action<th>
-                        </tr>
-                      </th>
+                          <th>id</th>
+                          <th>name</th>
+                          <th>price</th>
+                          <th>Catagory Name</th>
+                          <th>color</th>
+                          <th>stock</th>
+                          <th>ProductIcon</th>
+                          <th>Action</th>
+                         </tr>
+                      </thead>
                       <tbody>
-                      {{#products}}
+                      	{{#products}}
                         <tr>
-                            <td>{{id}}</td>
+                        	<td>{{id}}</td>
                             <td>{{name}}</td>
                             <td>{{price}}</td>
                             <td>{{productCatagory.catagoryName}}</td>
@@ -189,10 +196,13 @@
                             	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/UpdateProducts/{{id}}'">UPDATE</button>
                             </td>
                         </tr>
-                      {{/products}}
+                        {{/products}}
                       </tbody>
                     </table>
                   </div>
+                </div>
+              </div>
+            </div>
                 </div>
               </div>
             </div>

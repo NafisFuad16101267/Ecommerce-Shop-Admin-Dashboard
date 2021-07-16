@@ -21,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.shopapi.model.Order;
 import com.example.shopapi.model.ProductCatagory;
+import com.example.shopapi.model.ProductVarient;
 import com.example.shopapi.model.Products;
 import com.example.shopapi.model.User;
+import com.example.shopapi.repository.ProductVarientRepository;
 import com.example.shopapi.service.AdminService;
 
 @RestController
@@ -30,6 +32,8 @@ import com.example.shopapi.service.AdminService;
 public class AdminController {
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	ProductVarientRepository productVarientRepository;
 
 	@PostMapping("/productCatagory")
 	public ModelAndView createProductCatagory(@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagory,
@@ -105,5 +109,16 @@ public class AdminController {
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		return adminService.getAllUsersService();
+	}
+	
+	@GetMapping("/ProductVarient")
+	public List<ProductVarient> getProductVarient() {
+		List<ProductVarient> productVarient = productVarientRepository.findAll();
+		return productVarient;
+	}
+	
+	@PostMapping("/ProductVarient")
+	public ProductVarient setProductVarient(@Valid @RequestBody @ModelAttribute("products") ProductVarient productVarient) {
+		return productVarientRepository.save(productVarient);
 	}
 }

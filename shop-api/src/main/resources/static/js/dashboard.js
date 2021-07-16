@@ -240,8 +240,7 @@
       "language": {
         search: ""
       },
-      searching: false, paging: false, info: false
+      searching: true, paging: true, info: false
     });
-
   });
 })(jQuery);
