@@ -119,4 +119,49 @@ public class ApplicationController {
 		model.put("user", user);
 		return new ModelAndView("user", model);
 	}
+	
+	@GetMapping("/variantList")
+	public ModelAndView getVariantList(Map<String, Object> model) {
+		List<ProductVarient> productVarients = adminController.getProductVarient();
+		model.put("productVarient", productVarients);
+		return new ModelAndView("productVarient", model);
+	}
+	
+	@GetMapping("/UpdateProductVarient/{id}")
+	public ModelAndView UpdateProductVarient(Map<String, Object> model, @PathVariable(value = "id") Long id) {
+		ProductVarient productVarient = productVarientRepository.getById(id);
+		model.put("productVarient", productVarient);
+		return new ModelAndView("updateProductVarient", model);
+	}
+	
+	@PostMapping("/UpdateProductVarient")
+	public ModelAndView updateProductVarient(Map<String, Object> model,
+			@Valid @RequestBody @ModelAttribute("products") ProductVarient productVarient) {
+		return adminController.setProductVarient(productVarient);
+	}
+	
+	@GetMapping("/sales")
+	public ModelAndView showSalesReport(Map<String, Object> model) {
+		List<Order> orders = adminController.getAllOrders();
+		long totalRevenue = 0;
+		for(Order order : orders) {
+			totalRevenue = totalRevenue + order.getTotalPrice();
+		}
+		
+		List<Products> products = adminController.getAllProduct();
+		int mostOrderd = 0;
+		Products mostSoldProducts = null;
+		for(Products prod : products) {
+			if(prod.getOrders().size() > mostOrderd) {
+				mostSoldProducts = prod;
+				mostOrderd = prod.getOrders().size(); 
+			}
+		}
+		
+		model.put("totalRevenue", totalRevenue);
+		model.put("totalOrders", orders.size());
+		model.put("mostSoldProducts",mostSoldProducts);
+		model.put("mostOrderd", mostOrderd);
+		return new ModelAndView("sales",model);
+	}
 }

@@ -77,6 +77,18 @@
               <span class="menu-title">Users</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/variantList">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Variant List</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sales">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Sales</span>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- partial -->
@@ -106,6 +118,10 @@
 		                    <td> {{user.userName}} </td>
 		                    <td> {{user.userEmail}} </td>		                    
                             <td>{{totalPrice}}</td>
+                       		<td>{{#products}}
+                            		{{name}}
+                            		{{id}}
+                            	{{/products}}
                             <td> <button type="button" class="btn btn-sm btn-danger" onclick="sendDelete(event,{{id}})">DELETE</button>
                             <script>
 							    function sendDelete(event, orderId){
@@ -116,7 +132,7 @@
 							    }
 							</script>
 							<!-- Button trigger modal -->
-								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="">
 								  DETAILS
 								</button>
 								
@@ -132,27 +148,18 @@
 								      </div>
 								      <div class="modal-body">
 										 <table id="recent-purchases-listing" class="table">
-											<th>
+											<thead>
 												<tr>
-						                            <th>id</th>
 						                            <th>name</th>
-						                            <th>price</th>
-						                            <th>Catagory Name</th>
-						                            <th>color</th>
-						                            <th>stock</th>
 						                        </tr>
-						                      </th>
+						                      </thead>
 						                      <tbody>
-						                      	{{#products}}
-						                      	<tr>
+						                      {{#products}}
+						                      <tr>
+						                      	<td>{{name}}</td>
 						                      	<td>{{id}}</td>
-					                            <td>{{name}}</td>
-					                            <td>{{price}}</td>
-					                            <td>{{productCatagory.catagoryName}}</td>
-					                            <td>{{color}}</td>
-					                            <td>{{stock}}</td>
-					                            </tr>
-					                            {{/products}}
+						                      </tr>
+					                           {{/products}}
 						                      </tbody>
 						                  </table>
 								      </div>
@@ -160,12 +167,11 @@
 								        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 								      </div>
 								    </div>
-								     {{/orders}}
 								  </div>
 								</div>
                             </td>
                         </tr>
-                       
+                       {{/orders}}
                       </tbody>
                     </table>
                   </div>

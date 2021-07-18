@@ -118,7 +118,14 @@ public class AdminController {
 	}
 	
 	@PostMapping("/ProductVarient")
-	public ProductVarient setProductVarient(@Valid @RequestBody @ModelAttribute("products") ProductVarient productVarient) {
+	public ModelAndView setProductVarient(@Valid @RequestBody @ModelAttribute("productVarient") ProductVarient productVarient) {
+		productVarientRepository.save(productVarient);
+		return new ModelAndView("redirect:/variantList");
+	}
+	
+	@PutMapping("/ProductVarient/{id}")
+	public ProductVarient updateProductVarient(@Valid @RequestBody @ModelAttribute("productVarient") ProductVarient productVarient,
+			@PathVariable(value = "id") Long id) {
 		return productVarientRepository.save(productVarient);
 	}
 }

@@ -31,7 +31,6 @@ public class Products {
 	@JsonIgnore
 	private List<Order> orders;
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-	@JsonIgnore
 	private List<ProductVarient> productVarient;
 
 	public String getProductIcon() {

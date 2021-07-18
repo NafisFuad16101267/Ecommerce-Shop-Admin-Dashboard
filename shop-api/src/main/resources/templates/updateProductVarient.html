@@ -166,68 +166,45 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="../../index.html">
+            <a class="nav-link" href="/index">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="mdi mdi-circle-outline menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="../../pages/forms/basic_elements.html">
-              <i class="mdi mdi-view-headline menu-icon"></i>
-              <span class="menu-title">Form elements</span>
+           <li class="nav-item">
+            <a class="nav-link" href="/Categories">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../../pages/charts/chartjs.html">
-              <i class="mdi mdi-chart-pie menu-icon"></i>
-              <span class="menu-title">Charts</span>
+            <a class="nav-link" href="/productsList">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../../pages/tables/basic-table.html">
-              <i class="mdi mdi-grid-large menu-icon"></i>
-              <span class="menu-title">Tables</span>
+            <a class="nav-link" href="/ordersList">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/mdi.html">
-              <i class="mdi mdi-emoticon menu-icon"></i>
-              <span class="menu-title">Icons</span>
+            <a class="nav-link" href="/usersList">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="mdi mdi-account menu-icon"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link" href="/variantList">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Variant List</span>
             </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/login-2.html"> Login 2 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register.html"> Register </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/register-2.html"> Register 2 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/samples/lock-screen.html"> Lockscreen </a></li>
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../../documentation/documentation.html">
-              <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-              <span class="menu-title">Documentation</span>
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Sales</span>
             </a>
           </li>
         </ul>
@@ -243,58 +220,27 @@
                   <p class="card-description">
                     Basic form elements
                   </p>
-                  {{#product}}
-                  <form class="forms-sample" action="/UpdateProducts" method="POST" name="products">
+                  {{#productVarient}}
+                  <form class="forms-sample" action="/UpdateProductVarient" method="POST" name="products">
                   	<div class="form-group">
-                      <label for="id">Name</label>
+                      <label for="id">Varient ID</label>
                       <input type="text" class="form-control" id="id" name="id" value="{{id}}">
                     </div>
                   	<div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" name="name" value="{{name}}">
+                      <label for="id">Varient Name</label>
+                      <input type="text" class="form-control" id="varientName" name="varientName" value="{{varientName}}">
+                    </div>
+                  	<div class="form-group">
+                      <label for="varientDetails">Varient Details</label>
+                      <input type="text" class="form-control" id="varientDetails" name="varientDetails" value="{{varientDetails}}">
                     </div>
                     <div class="form-group">
-                      <label for="price">Price</label>
-                      <input type="number" class="form-control" id="price" name="price" value="{{price}}">
+                      <label for="varientDetails">Product ID</label>
+                      <input type="text" class="form-control" id="product" name="product" value="{{product.id}}">
                     </div>
-                    <div class="form-group">
-                      <label for="productCatagory">Catagory Id</label>
-                      <input type="number" class="form-control" id="productCatagory" name="productCatagory.id" value={{productCatagory.id}}>
-                    </div>
-                    <div class="form-group">
-                      <label for="productCatagory">Catagory Name</label>
-                      <input type="text" class="form-control" id="productCatagory" name="productCatagory.catagoryName" value="{{productCatagory.catagoryName}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="color">Color</label>
-                      <input type="text" class="form-control" id="color" name="color" value="{{color}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="stock">Stock</label>
-                      <input type="number" class="form-control" id="stock" name="stock" value="{{stock}}">
-                    </div>
-                    <div class="form-group">
-                      <label for="productIcon">Product Icon Url</label>
-                      <input type="text" class="form-control" id="productIcon" name="productIcon" value="{{productIcon}}">
-                    </div>
-                    {{#ProductVarient}}
-                    	<div class="form-group">
-	                      <label for="productIcon">Product Varient ID</label>
-	                      <input type="text" class="form-control" id="id" name="id" value="{{id}}">
-	                    </div>
-                    	<div class="form-group">
-	                      <label for="productIcon">Product Varient Name</label>
-	                      <input type="text" class="form-control" id="varientName" name="varientName" value="{{varientName}}">
-	                    </div>
-	                    <div class="form-group">
-	                      <label for="productIcon">Product Varient Details</label>
-	                      <input type="text" class="form-control" id="varientDetails" name="varientDetails" value="{{varientDetails}}">
-	                    </div>
-                    {{/ProductVarient}}
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
                     <button class="btn btn-light">Cancel</button>
-                  </form>
-                  {{/product}}
+                  {{/productVarient}}
                 </div>
               </div>
             </div>

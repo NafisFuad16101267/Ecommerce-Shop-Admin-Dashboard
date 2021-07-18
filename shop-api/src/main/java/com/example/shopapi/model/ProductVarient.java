@@ -16,6 +16,7 @@ public class ProductVarient {
 	private String varientName;
 	private String varientDetails;
 	@ManyToOne
+	@JsonIgnore
 	private Products product;
 	public long getId() {
 		return id;
