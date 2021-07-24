@@ -157,13 +157,13 @@
                       </thead>
                       <tbody>
                       {{#productCatagory}}
-                        <tr>
+                        <tr id={{id}}>
 		                    <td> {{catagoryName}} </td>
                             <td> <button type="button" class="btn btn-sm btn-danger" onclick="sendDeleteCatagory(event,{{id}})">DELETE</button>
                             <script>
 							    function sendDeleteCatagory(event, catagoryId){
 							    	var xhttp = new XMLHttpRequest();
-							        event.preventDefault();
+							        document.getElementById("{{id}}").style.display = "none";
 							        xhttp.open("DELETE", "/admin/productCatagory/"+catagoryId, true);
 							        xhttp.send();
 							    }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -82,6 +83,14 @@ public class ApplicationController {
 		model.put("productCatagoty", productCatagoty);
 		return new ModelAndView("updateProductCatagory", model);
 	}
+	
+	@PostMapping("/UpdateProductCategory")
+	public ModelAndView updateProductCategoryPage(Map<String, Object> model, 
+			@Valid @RequestBody @ModelAttribute("productCatagory") ProductCatagory productCatagory) {
+		ProductCatagory savedProductCatagory = prodcutsCatagoryRepository.save(productCatagory);
+		model.put("productCatagoty", savedProductCatagory);
+		return new ModelAndView("updateProductCatagory", model);
+	}
 
 	@PostMapping("/Categories")
 	public ModelAndView updateProductCatagoryPage(Map<String, Object> model,
@@ -102,7 +111,9 @@ public class ApplicationController {
 	@GetMapping("/productsList")
 	public ModelAndView getProductsList(Map<String, Object> model){
 		List<Products> products = adminController.getAllProduct();
+		List<ProductCatagory> productCatagory = adminController.getAllProductCatagory();
 		model.put("products", products);
+		model.put("productCatagory", productCatagory);
 		return new ModelAndView("products", model);
 	}
 
@@ -138,6 +149,12 @@ public class ApplicationController {
 	public ModelAndView updateProductVarient(Map<String, Object> model,
 			@Valid @RequestBody @ModelAttribute("products") ProductVarient productVarient) {
 		return adminController.setProductVarient(productVarient);
+	}
+	
+	@DeleteMapping("/ProductVarient/{id}")
+	public ModelAndView deleteProductVarient(@PathVariable(value = "id") Long id) {
+		productVarientRepository.deleteById(id);
+		return new ModelAndView("redirect:/variantList");
 	}
 	
 	@GetMapping("/sales")

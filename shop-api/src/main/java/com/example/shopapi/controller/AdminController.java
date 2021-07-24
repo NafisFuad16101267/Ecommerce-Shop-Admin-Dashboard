@@ -55,8 +55,9 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/productCatagory/{id}")
-	public ResponseEntity<?> deleteProductCatagory(@PathVariable(value = "id") Long id) {
-		return adminService.deleteProductCatagoryService(id);
+	public ModelAndView deleteProductCatagory(@PathVariable(value = "id") Long id) {
+		adminService.deleteProductCatagoryService(id);
+		return new ModelAndView("redirect:/Categories");
 	}
 
 	@PostMapping("/product")

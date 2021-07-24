@@ -163,11 +163,12 @@
                         	<th>Product Name</th>
                             <th>Variant Name</th>
                             <th>Variant Details</th>
+                            <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                       {{#productVarient}}
-                        <tr>
+                        <tr id={{id}}>
                         	<td> {{product.id}} </td>
                         	<td> {{product.name}} </td>
 		                    <td> {{varientName}} </td>
@@ -176,8 +177,8 @@
                             <script>
 							    function sendDeleteCatagory(event, catagoryId){
 							    	var xhttp = new XMLHttpRequest();
-							        event.preventDefault();
-							        xhttp.open("DELETE", "/admin/productCatagory/"+catagoryId, true);
+							        document.getElementById("{{id}}").style.display = "none";
+							        xhttp.open("DELETE", "/ProductVarient/"+catagoryId, true);
 							        xhttp.send();
 							    }
 							</script>  

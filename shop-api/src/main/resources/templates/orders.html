@@ -108,11 +108,13 @@
                             <th>user name</th>
                             <th>user email</th>
                             <th>total_Price</th>
+                            <th>Details</th>
+                            <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                       {{#orders}}
-                        <tr>
+                        <tr id={{id}}>
                             <td>{{id}}</td>
 		                    <td> {{user.userId}} </td>
 		                    <td> {{user.userName}} </td>
@@ -126,7 +128,7 @@
                             <script>
 							    function sendDelete(event, orderId){
 							    	var xhttp = new XMLHttpRequest();
-							        event.preventDefault();
+							        document.getElementById("{{id}}").style.display = "none";
 							        xhttp.open("DELETE", "/user/order/"+orderId, true);
 							        xhttp.send();
 							    }
