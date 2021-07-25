@@ -55,37 +55,37 @@
           </li>
            <li class="nav-item">
             <a class="nav-link" href="/productCategories">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class=" mdi mdi-file-tree menu-icon"></i>
               <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/products">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-buffer menu-icon"></i>
               <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/orders">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/productVarients">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi  mdi mdi-tune-vertical menu-icon"></i>
               <span class="menu-title">Variant List</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/sales">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-square-inc-cash menu-icon"></i>
               <span class="menu-title">Sales</span>
             </a>
           </li>
@@ -94,21 +94,6 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-          <div class="row" id="proBanner">
-            <div class="col-md-12 grid-margin">
-              <div class="card bg-gradient-primary border-0">
-                <div class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
-                  <p class="mb-0 text-white font-weight-medium">Get tons of UI components, Plugins, multiple layouts, 20+ sample pages, and more!                  </p>
-                  <div class="d-flex">
-                    <a href="https://www.bootstrapdash.com/product/majestic-admin-pro?utm_source=organic&utm_medium=banner&utm_campaign=free-preview" target="_blank" class="btn btn-outline-light mr-2 bg-gradient-danger border-0">Check Pro Version</a>
-                    <button id="bannerClose" class="btn border-0 p-0 ml-auto">
-                      <i class="mdi mdi-close text-white"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
@@ -116,6 +101,7 @@
                   <p class="card-title">Product Category</p>
                   <!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <i class="mdi mdi-file-check btn-icon-prepend"></i>
 					  Create New Category
 					</button>
 					
@@ -158,7 +144,10 @@
                       {{#productCategory}}
                         <tr id={{id}}>
 		                    <td> {{categoryName}} </td>
-                        <td> <button type="button" class="btn btn-sm btn-danger" onclick="sendDeleteCatagory(event,{{id}})">DELETE</button>
+                        <td> <button type="button" class="btn btn-danger btn-icon-text" onclick="sendDeleteCatagory(event,{{id}})">
+                          <i class="mdi mdi-delete"></i>
+                          DELETE
+                        </button>
                         <script>
                           function sendDeleteCatagory(event, catagoryId){
                             var xhttp = new XMLHttpRequest();
@@ -172,7 +161,10 @@
                             }
                           }
                         </script>  
-                            	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/admin/productCategory/{{id}}'">UPDATE</button>
+                            	<button type="button" class="btn btn-dark btn-icon-text" onClick="window.location.href = '/admin/productCategory/{{id}}'">
+                                <i class="mdi mdi-grease-pencil"></i>
+                                UPDATE
+                              </button>
                             </td>
                         </tr>
                         {{/productCategory}}
@@ -188,10 +180,6 @@
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
-          </div>
         </footer>
         <!-- partial -->
       </div>

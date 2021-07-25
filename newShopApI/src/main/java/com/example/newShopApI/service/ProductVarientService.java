@@ -53,4 +53,8 @@ public class ProductVarientService {
 				.orElseThrow(() -> new ResourceNotFoundException("ProductVarient", "id", productVarientId));
 		return productVarient;
 	}
+	
+	public List<ProductVarient> findProductVarientByNameService(String varientName) {
+		return productVarientRepository.findAllByVarientName(varientName);
+	}
 }

@@ -26,4 +26,13 @@ public class UserService {
 	public User findUserById(Long userId) {
 		return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User","id",userId));
 	}
+	
+	public User updateUserService(Long userId, User userDetails) {
+		User user = findUserById(userId);
+		if(userDetails.getUserName() != null) user.setUserName(userDetails.getUserName());
+		if(userDetails.getUserEmail() != null) user.setUserEmail(userDetails.getUserEmail());
+		
+		userRepository.save(user);
+		return user;
+	}
 }

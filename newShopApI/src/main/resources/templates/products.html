@@ -54,37 +54,37 @@
           </li>
            <li class="nav-item">
             <a class="nav-link" href="/productCategories">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class=" mdi mdi-file-tree menu-icon"></i>
               <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/products">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-buffer menu-icon"></i>
               <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/orders">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/productVarients">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi  mdi mdi-tune-vertical menu-icon"></i>
               <span class="menu-title">Variant List</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/sales">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-square-inc-cash menu-icon"></i>
               <span class="menu-title">Sales</span>
             </a>
           </li>
@@ -99,7 +99,8 @@
                 <div class="card-body">
                   <p class="card-title">Products</p>
                   <!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					<button type="button" class="btn btn-primary btn-icon-text" data-toggle="modal" data-target="#exampleModal">
+            <i class="mdi mdi-file-check btn-icon-prepend"></i>
 					  Create New Product
 					</button>
 					
@@ -131,38 +132,17 @@
 				                    </div>
                             <div class="form-group">
 				                      <label for="categoryName">Category Name</label>
-				                      <input type="text" class="form-control" id="categoryName" name="categoryName" onkeyup="myFunction()" placeholder="Product Catagory Name" required>
-                              <ul id="myUL">
+				                      <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Product Catagory Name" list="catList" required>
+                              <datalist id="catList">
                                 {{#productCategory}}
-                                <li>{{categoryName}}</li>
+                                <option>{{categoryName}}</option>
                                 {{/productCategory}}
-                              </ul>
+                              </datalist>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
 				                  </form>
 				                </div>
               				</div>
-                      <script>
-                        function myFunction() {
-                          // Declare variables
-                          var input, filter, ul, li, a, i, txtValue;
-                          input = document.getElementById('myInput');
-                          filter = input.value.toUpperCase();
-                          ul = document.getElementById("myUL");
-                          li = ul.getElementsByTagName('li');
-                        
-                          // Loop through all list items, and hide those who don't match the search query
-                          for (i = 0; i < li.length; i++) {
-                            a = li[i].getElementsByTagName("a")[0];
-                            txtValue = a.textContent || a.innerText;
-                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                              li[i].style.display = "";
-                            } else {
-                              li[i].style.display = "none";
-                            }
-                          }
-                        }
-                        </script>
               			</div>
 					    </div>
 					  </div>
@@ -191,7 +171,10 @@
                             <td>{{productCategory.categoryName}}</td>
                             <td>{{productDescription}}</td>
                             <td>{{productIcon}}</td>
-                            <td> <button type="button" class="btn btn-sm btn-danger" onClick="sendDeleteProduct(event,{{id}})">DELETE</button>
+                            <td> <button type="button" class="btn btn-danger btn-icon-text" onClick="sendDeleteProduct(event,{{id}})">
+                              <i class="mdi mdi-delete"></i>
+                              DELETE
+                            </button>
                             	<script>
                                 function sendDeleteProduct(event,prodId){
                                   var xhttp = new XMLHttpRequest();
@@ -206,7 +189,10 @@
                                 }
                               </script>   
                             	
-                            	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/admin/product/{{id}}'">UPDATE</button>
+                            	<button type="button" class="btn btn-dark btn-icon-text" onClick="window.location.href = '/admin/product/{{id}}'">
+                                <i class="mdi mdi-grease-pencil"></i> 
+                                UPDATE
+                              </button>
                             </td>
                         </tr>
                         {{/products}}
@@ -224,8 +210,6 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
           </div>
         </footer>
         <!-- partial -->

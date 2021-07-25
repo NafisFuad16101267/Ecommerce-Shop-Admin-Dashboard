@@ -47,37 +47,37 @@
           </li>
            <li class="nav-item">
             <a class="nav-link" href="/productCategories">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class=" mdi mdi-file-tree menu-icon"></i>
               <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/products">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-buffer menu-icon"></i>
               <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/orders">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/productVarients">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi  mdi mdi-tune-vertical menu-icon"></i>
               <span class="menu-title">Variant List</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/sales">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-square-inc-cash menu-icon"></i>
               <span class="menu-title">Sales</span>
             </a>
           </li>
@@ -90,23 +90,29 @@
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Basic form elements</h4>
-                  <p class="card-description">
-                    Basic form elements
-                  </p>
+                  <h4 class="card-title">Product Update Form</h4>
                   {{#product}}
                   <form class="forms-sample" action="/admin/UpdateProduct" method="POST" name="products">
                   	<div class="form-group" style="display: none;">
                       <label for="id">ID</label>
-                      <input type="text" class="form-control" id="id" name="id" value="{{id}}">
+                      <input type="text" class="form-control" id="id" name="id" value="{{id}}" required>
                     </div>
                     <div class="form-group">
                       <label for="productName">Name</label>
-                      <input type="text" class="form-control" id="productName" name="productName" value="{{productName}}">
+                      <input type="text" class="form-control" id="productName" name="productName" value="{{productName}}" required>
                     </div>
                     <div class="form-group">
                       <label for="productDescription">Description</label>
-                      <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{productDescription}}">
+                      <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{productDescription}}" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="categoryName">Product Category Name</label>
+                      <input type="text" class="form-control" id="categoryName" name="categoryName" value="{{productCategory.categoryName}}" list="catList" required>
+                      <datalist id="catList">
+                        {{#prouctCategories}}
+                          <option>{{categoryName}}</option>>
+                        {{/prouctCategories}}
+                      </datalist>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
                     <button class="btn btn-light">Cancel</button>

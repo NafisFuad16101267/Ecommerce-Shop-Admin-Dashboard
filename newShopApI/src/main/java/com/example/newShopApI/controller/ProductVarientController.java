@@ -45,4 +45,9 @@ public class ProductVarientController {
 	public ResponseEntity<?> deleteProductVarient(@PathVariable(value = "id") Long productId) {
 		return productVarientService.deleteProductVarientService(productId);
 	}
+	
+	@GetMapping("/productVarient/{{varientName}}")
+	public List<ProductVarient> findProductVarientByName(@PathVariable(value = "varientName") String varientName) {
+		return productVarientService.findProductVarientByNameService(varientName);
+	}
 }

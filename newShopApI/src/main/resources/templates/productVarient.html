@@ -55,37 +55,37 @@
           </li>
            <li class="nav-item">
             <a class="nav-link" href="/productCategories">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class=" mdi mdi-file-tree menu-icon"></i>
               <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/products">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-buffer menu-icon"></i>
               <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/orders">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/productVarients">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi  mdi mdi-tune-vertical menu-icon"></i>
               <span class="menu-title">Variant List</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/sales">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-square-inc-cash menu-icon"></i>
               <span class="menu-title">Sales</span>
             </a>
           </li>
@@ -101,6 +101,7 @@
                   <p class="card-title">Product Variant</p>
                   <!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <i class="mdi mdi-file-check btn-icon-prepend"></i>
 					  Create New Variant
 					</button>
 					
@@ -132,7 +133,12 @@
 				                    </div>
 				                    <div class="form-group">
 				                      <label for="productName">Product Name</label>
-				                      <input type="text" class="form-control" id="productName" name="productName" placeholder="Product ID">
+				                      <input type="text" class="form-control" id="productName" name="productName" placeholder="Product Name" list="prodList" required>
+                              <datalist id="prodList">
+                                {{#products}}
+                                <option>{{productName}}</option>
+                                {{/products}}
+                              </datalist>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
 				                  </form>
@@ -160,7 +166,10 @@
 		                      <td> {{varientName}} </td>
 		                      <td> {{varientDescription}} </td>
                           <td> {{price}} </td>
-                          <td> <button type="button" class="btn btn-sm btn-danger" onclick="sendDeleteCatagory(event,{{id}})">DELETE</button>
+                          <td> <button type="button" class="btn btn-danger btn-icon-text" onclick="sendDeleteCatagory(event,{{id}})">
+                                <i class="mdi mdi-delete"></i>  
+                                  DELETE
+                              </button>
                             <script>
                               function sendDeleteCatagory(event, catagoryId){
                                 var xhttp = new XMLHttpRequest();
@@ -173,7 +182,10 @@
                                 }  
                               }
                             </script>  
-                            	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/admin/productVarient/{{id}}'">UPDATE</button>
+                            	<button type="button" class="btn btn-dark btn-icon-text" onClick="window.location.href = '/admin/productVarient/{{id}}'">
+                                <i class="mdi mdi-grease-pencil"></i>
+                                UPDATE
+                              </button>
                           </td>
                         </tr>
                         {{/productVarient}}
@@ -190,8 +202,6 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
           </div>
         </footer>
         <!-- partial -->

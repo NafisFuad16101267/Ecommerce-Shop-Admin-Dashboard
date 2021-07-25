@@ -111,7 +111,9 @@ public class ApplicationController {
 	@GetMapping("/admin/product/{id}")
 	public ModelAndView updateProduct(@PathVariable(value = "id") Long productId, Map<String, Object> model) {
 		Product product = productService.findProductByIdService(productId);
+		List<ProductCategory> prouctCategories = productCategoryService.getAllProductCategoriesService(); 
 		model.put("product", product);
+		model.put("prouctCategories", prouctCategories);
 		return new ModelAndView("updateProducts", model);
 	}
 
@@ -131,7 +133,9 @@ public class ApplicationController {
 	@GetMapping("/productVarients")
 	public ModelAndView productVarientsPage(Map<String, Object> model) {
 		List<ProductVarient> productVarient = productVarientService.getAllProdutcVarientService();
+		List<Product> products = productService.getAllProdutcsService();
 		model.put("productVarient", productVarient);
+		model.put("products", products);
 		return new ModelAndView("productVarient", model);
 	}
 
@@ -177,6 +181,7 @@ public class ApplicationController {
 	}
 	
 	// Order View Controller
+	
 	@GetMapping("/orders")
 	public ModelAndView orderPage(Map<String, Object> model) {
 		List<Order> orders = orderService.getAllOrdersService();
@@ -184,7 +189,14 @@ public class ApplicationController {
 		return new ModelAndView("orders",model);
 	}
 	
+	@DeleteMapping("/admin/order/{id}")
+	public ModelAndView deleteOrder(@PathVariable Long id) {
+		orderService.deleteOrderService(id);
+		return new ModelAndView("redirect:/orders");
+	}
+	
 	// User View Controller
+	
 	@GetMapping("/users")
 	public ModelAndView userPage(Map<String, Object> model) {
 		List<User> user = userService.getAllUserService();

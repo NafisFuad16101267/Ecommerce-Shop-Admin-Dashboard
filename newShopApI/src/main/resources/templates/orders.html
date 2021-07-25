@@ -55,37 +55,37 @@
           </li>
            <li class="nav-item">
             <a class="nav-link" href="/productCategories">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class=" mdi mdi-file-tree menu-icon"></i>
               <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/products">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-buffer menu-icon"></i>
               <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/orders">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-cart menu-icon"></i>
               <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/users">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/productVarients">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi  mdi mdi-tune-vertical menu-icon"></i>
               <span class="menu-title">Variant List</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/sales">
-              <i class="mdi mdi-home menu-icon"></i>
+              <i class="mdi mdi-square-inc-cash menu-icon"></i>
               <span class="menu-title">Sales</span>
             </a>
           </li>
@@ -113,27 +113,35 @@
                       </thead>
                       <tbody>
                       {{#orders}}
-                        <tr>
+                        <tr id="{{id}}">
                         <td>{{id}}</td>
 		                    <td> {{user.userName}} </td>
 		                    <td> {{user.userEmail}} </td>		                    
                         <td>{{totalPrice}}</td>
                        	<td>{{#productVarients}}
-                            		{{varientName}}
+                            		{{varientName}},
                             	{{/productVarients}}
                         </td>
-                            <td> <button type="button" class="btn btn-sm btn-danger" onclick="sendDelete(event,{{id}})">DELETE</button>
+                            <td> <button type="button" class="btn btn-danger btn-icon-text" onclick="sendDelete(event,{{id}})">
+                              <i class="mdi mdi-delete"></i>  
+                                  DELETE
+                                </button>
                             <script>
 							    function sendDelete(event, orderId){
 							    	var xhttp = new XMLHttpRequest();
-							        event.preventDefault();
-							        xhttp.open("DELETE", "/user/order/"+orderId, true);
+                    var result = confirm("Want to delete?");
+                    const ord = document.getElementById('{{id}}');
+                    if(result){
+                      ord.style.display = "none";
+                      xhttp.open("DELETE", "/admin/order/"+orderId, true);
 							        xhttp.send();
+                    }
 							    }
 							</script>
 							<!-- Button trigger modal -->
-								<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong" onclick="myFunction({{id}})">
-								  DETAILS
+								<button type="button" class="btn btn-info btn-icon-text" data-toggle="modal" data-target="#exampleModalLong" onclick="myFunction({{id}})">
+								  <i class="mdi mdi-account-card-details"></i>
+                  DETAILS
 								</button>
 								<!-- Modal -->
 								<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -205,8 +213,7 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
+            
           </div>
         </footer>
         <!-- partial -->
