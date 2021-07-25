@@ -1,5 +1,6 @@
 package com.example.newShopApI.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +17,29 @@ public class OrderService {
 
 	@Autowired
 	OrderRepository orderRepository;
+	@Autowired
+	ProductVarientService productVarientService;
+	@Autowired
+	UserService userService;
 
 	public List<Order> getAllOrdersService() {
 		return orderRepository.findAll();
 	}
 
-	public Order createNewOrderService(Order order) {
-		List<ProductVarient> productVarients = order.getProductVarients();
+	public Order createNewOrderService(ArrayList<Long> ids, Long userId) {
 		double totalPrice = 0.0;
-		for (ProductVarient productVarient : productVarients) {
+		List<ProductVarient> productVarients = new ArrayList<ProductVarient>();
+		for(Long id : ids) {
+			ProductVarient productVarient = productVarientService.findProductVarientByIdService(id);
+			productVarients.add(productVarient);
 			totalPrice = totalPrice + productVarient.getPrice();
 		}
+		
+		Order order = new Order();
+		order.setProductVarients(productVarients);
+		order.setUser(userService.findUserById(userId));
 		order.setTotalPrice(totalPrice);
-
+		
 		return orderRepository.save(order);
 	}
 

@@ -54,37 +54,37 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/productCategories">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Categories</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/productsList">
+            <a class="nav-link" href="/products">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Products</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/ordersList">
+            <a class="nav-link" href="/orders">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Orders</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/usersList">
+            <a class="nav-link" href="/users">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Users</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/variantList">
+            <a class="nav-link" href="/productVarients">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Variant List</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/sales">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Sales</span>
             </a>
@@ -155,7 +155,7 @@
                       </thead>
                       <tbody>
                       {{#productVarient}}
-                        <tr>
+                        <tr id="{{id}}">
                         	<td> {{product.productName}} </td>
 		                      <td> {{varientName}} </td>
 		                      <td> {{varientDescription}} </td>
@@ -164,9 +164,13 @@
                             <script>
                               function sendDeleteCatagory(event, catagoryId){
                                 var xhttp = new XMLHttpRequest();
-                                  event.preventDefault();
+                                var result = confirm("Want to delete?");
+                                const varient = document.getElementById('{{id}}');
+                                if(result){
+                                  varient.style.display = "none";
                                   xhttp.open("DELETE", "/admin/productCatagory/"+catagoryId, true);
                                   xhttp.send();
+                                }  
                               }
                             </script>  
                             	<button type="button" class="btn btn-sm btn-dark" onClick="window.location.href = '/admin/productVarient/{{id}}'">UPDATE</button>

@@ -1,5 +1,6 @@
 package com.example.newShopApI.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.newShopApI.model.Order;
@@ -31,8 +33,9 @@ public class OrderController {
 	}
 	
 	@PostMapping("/orders")
-	public Order createNewOrder(@Valid @RequestBody Order order) {
-		return orderService.createNewOrderService(order);
+	public Order createNewOrder(@RequestParam @PathVariable(value = "id") ArrayList<Long> id,
+			@RequestParam @PathVariable(value = "userId") Long userId) {
+		return orderService.createNewOrderService(id, userId);
 	}
 	
 	@PutMapping("/orders/{id}")

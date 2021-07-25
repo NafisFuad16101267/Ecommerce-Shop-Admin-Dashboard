@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Order")
@@ -24,14 +25,18 @@ public class Order {
 	@ManyToMany
 	private List<ProductVarient> productVarients;
 
+	@ManyToOne
+	private User user;
+
 	public Order() {
 
 	}
 
-	public Order(Double totalPrice, List<ProductVarient> productVarients) {
+	public Order(Double totalPrice, List<ProductVarient> productVarients, User user) {
 		super();
 		this.totalPrice = totalPrice;
 		this.productVarients = productVarients;
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -56,6 +61,14 @@ public class Order {
 
 	public void setProductVarients(List<ProductVarient> productVarients) {
 		this.productVarients = productVarients;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

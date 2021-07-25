@@ -19,10 +19,12 @@ import com.example.newShopApI.model.Order;
 import com.example.newShopApI.model.Product;
 import com.example.newShopApI.model.ProductCategory;
 import com.example.newShopApI.model.ProductVarient;
+import com.example.newShopApI.model.User;
 import com.example.newShopApI.service.OrderService;
 import com.example.newShopApI.service.ProductCategoryService;
 import com.example.newShopApI.service.ProductService;
 import com.example.newShopApI.service.ProductVarientService;
+import com.example.newShopApI.service.UserService;
 
 @RestController
 public class ApplicationController {
@@ -35,6 +37,8 @@ public class ApplicationController {
 	ProductVarientService productVarientService;
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	UserService userService;
 
 	@GetMapping("/index")
 	public ModelAndView indexPage(Map<String, Object> model) {
@@ -178,5 +182,13 @@ public class ApplicationController {
 		List<Order> orders = orderService.getAllOrdersService();
 		model.put("orders", orders);
 		return new ModelAndView("orders",model);
+	}
+	
+	// User View Controller
+	@GetMapping("/users")
+	public ModelAndView userPage(Map<String, Object> model) {
+		List<User> user = userService.getAllUserService();
+		model.put("user", user);
+		return new ModelAndView("user",model);
 	}
 }
