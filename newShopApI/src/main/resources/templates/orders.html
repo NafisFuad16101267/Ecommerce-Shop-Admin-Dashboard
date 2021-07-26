@@ -174,7 +174,7 @@
 								</div>
                 <script>
                   function myFunction(id){
-                    fetch("http://localhost:9090/api/orders")
+                    fetch("/api/orders")
                     .then(res => res.json())
                     .then(data => {
                       let str = "";

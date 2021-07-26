@@ -117,7 +117,7 @@
 					      <div class="modal-body">
 					        <div class="card">
 				                <div class="card-body">
-				                  <form class="forms-sample" action="/admin/product" method="POST" name="products">
+				                  <form class="forms-sample" action="/admin/product" method="POST" name="products" autocomplete="off">
 				                    <div class="form-group">
 				                      <label for="productName">Product Name</label>
 				                      <input type="text" class="form-control" id="productName" name="productName" placeholder="product name" required>
@@ -140,6 +140,7 @@
                               </datalist>
 				                    </div>
 				                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                            <button class="btn btn-light" data-dismiss="modal">Cancel</button>
 				                  </form>
 				                </div>
               				</div>

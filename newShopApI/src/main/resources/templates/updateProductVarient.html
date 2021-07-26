@@ -95,7 +95,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Porduct Varient Update Form</h4>
                   {{#productVarient}}
-                  <form class="forms-sample" action="/admin/UpdateProductVarinet" method="POST" name="productVarient">
+                  <form class="forms-sample" action="/admin/UpdateProductVarinet" method="POST" name="productVarient" autocomplete="off">
                   	<div class="form-group" style="display: none;">
                       <label for="id">Varient ID</label>
                       <input type="text" class="form-control" id="id" name="id" value="{{id}}" required>
@@ -117,7 +117,7 @@
                       <input type="text" class="form-control" id="productName" name="productName" value="{{product.productName}}" required>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
-                    <button class="btn btn-light">Cancel</button>
+                    <button class="btn btn-light" onclick="history.back()">Cancel</button>
                   {{/productVarient}}
                 </div>
               </div>

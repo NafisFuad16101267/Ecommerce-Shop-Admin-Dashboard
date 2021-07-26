@@ -46,7 +46,7 @@ public class ProductCategoryService {
 	}
 	
 	public List<ProductCategory> searchByName(String name) {
-		return productCategoryRepository.findAllBycategoryName(name);
+		return productCategoryRepository.findAllByCategoryName(name);
 	}
 	
 	public ProductCategory findProductCategoryById(long productCategoryId) {

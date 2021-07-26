@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.newShopApI.exception.ResourceNotFoundException;
 import com.example.newShopApI.model.Order;
 import com.example.newShopApI.model.Product;
 import com.example.newShopApI.model.ProductCategory;
@@ -97,9 +98,15 @@ public class ApplicationController {
 	public ModelAndView createNewProduct(@Valid @RequestBody @ModelAttribute("product") Product product,
 			@Valid @RequestBody @ModelAttribute("categoryName") String categoryName, Map<String, Object> model) {
 		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
-		product.setProductCategory(productCategory.get(0));
-		productService.createProductService(product);
-		return new ModelAndView("redirect:/products");
+		if (productCategory.size() > 0) {
+			product.setProductCategory(productCategory.get(0));
+			productService.createProductService(product);
+			return new ModelAndView("redirect:/products");
+		} else {
+			String errorMessage = "Please Enter a Product Category form suggestion";
+			model.put("errorMessage", errorMessage);
+			return new ModelAndView("error", model);
+		}
 	}
 
 	@DeleteMapping("/admin/product/{id}")
@@ -111,21 +118,30 @@ public class ApplicationController {
 	@GetMapping("/admin/product/{id}")
 	public ModelAndView updateProduct(@PathVariable(value = "id") Long productId, Map<String, Object> model) {
 		Product product = productService.findProductByIdService(productId);
-		List<ProductCategory> prouctCategories = productCategoryService.getAllProductCategoriesService(); 
+		List<ProductCategory> prouctCategories = productCategoryService.getAllProductCategoriesService();
 		model.put("product", product);
 		model.put("prouctCategories", prouctCategories);
 		return new ModelAndView("updateProducts", model);
 	}
 
 	@PostMapping("/admin/UpdateProduct")
-	public ModelAndView updateProductView(@Valid @RequestBody @ModelAttribute("product") Product productDetails) {
+	public ModelAndView updateProductView(@Valid @RequestBody @ModelAttribute("product") Product productDetails,
+			@Valid @RequestBody @ModelAttribute("categoryName") String categoryName, Map<String, Object> model) {
 		Product product = productService.findProductByIdService(productDetails.getId());
 		if (productDetails.getProductName() != null)
 			product.setProductName(productDetails.getProductName());
 		if (productDetails.getProductDescription() != null)
 			product.setProductDescription(productDetails.getProductDescription());
-		productService.updateProductService(productDetails.getId(), product);
-		return new ModelAndView("redirect:/products");
+		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
+		if (productCategory.size() > 0) {
+			product.setProductCategory(productCategory.get(0));
+			productService.updateProductService(productDetails.getId(), product);
+			return new ModelAndView("redirect:/products");
+		} else {
+			String errorMessage = "Please Enter a Product Category form suggestion";
+			model.put("errorMessage", errorMessage);
+			return new ModelAndView("error", model);
+		}
 	}
 
 	// Product Varient View Controller
@@ -142,10 +158,15 @@ public class ApplicationController {
 	@PostMapping("/admin/productVarient")
 	public ModelAndView createNewProductVarient(
 			@Valid @RequestBody @ModelAttribute("productVarient") ProductVarient productVarient,
-			@Valid @RequestBody @ModelAttribute("productName") String productName) {
+			@Valid @RequestBody @ModelAttribute("productName") String productName, Map<String, Object> model) {
 		List<Product> product = productService.findProductByName(productName);
 		if (product.size() > 0)
 			productVarient.setProduct(product.get(0));
+		else {
+			String errorMessage = "Please enter a Product Name form the Suggestions";
+			model.put("errorMessage", errorMessage);
+			return new ModelAndView("error", model);
+		}
 		productVarientService.createProductVarientService(productVarient);
 		return new ModelAndView("redirect:/productVarients");
 	}
@@ -161,12 +182,14 @@ public class ApplicationController {
 	@PostMapping("/admin/UpdateProductVarinet")
 	public ModelAndView updateProductVarientView(
 			@Valid @RequestBody @ModelAttribute("productVarient") ProductVarient productVarientDetails,
-			@Valid @RequestBody @ModelAttribute("productName") String productName) {
+			@Valid @RequestBody @ModelAttribute("productName") String productName, Map<String, Object> model) {
 		ProductVarient productVarinet = productVarientService
 				.findProductVarientByIdService(productVarientDetails.getId());
-		
+
 		List<Product> product = productService.findProductByName(productName);
-		
+		if (product.size() < 1)
+			throw new ResourceNotFoundException("productName", "productName", productName);
+
 		if (productVarientDetails.getVarientName() != null)
 			productVarinet.setVarientName(productVarientDetails.getVarientName());
 		if (productVarientDetails.getVarientDescription() != null)
@@ -175,32 +198,68 @@ public class ApplicationController {
 			productVarinet.setPrice(productVarientDetails.getPrice());
 		if (product.size() > 0)
 			productVarinet.setProduct(product.get(0));
+		else {
+			String errorMessage = "Please enter a Product Name form the Suggestions";
+			model.put("errorMessage", errorMessage);
+			return new ModelAndView("error", model);
+		}
 
 		productVarientService.updateProductVarientService(productVarientDetails.getId(), productVarinet);
 		return new ModelAndView("redirect:/productVarients");
 	}
-	
+
 	// Order View Controller
-	
+
 	@GetMapping("/orders")
 	public ModelAndView orderPage(Map<String, Object> model) {
 		List<Order> orders = orderService.getAllOrdersService();
 		model.put("orders", orders);
-		return new ModelAndView("orders",model);
+		return new ModelAndView("orders", model);
 	}
-	
+
 	@DeleteMapping("/admin/order/{id}")
 	public ModelAndView deleteOrder(@PathVariable Long id) {
 		orderService.deleteOrderService(id);
 		return new ModelAndView("redirect:/orders");
 	}
-	
+
 	// User View Controller
-	
+
 	@GetMapping("/users")
 	public ModelAndView userPage(Map<String, Object> model) {
 		List<User> user = userService.getAllUserService();
 		model.put("user", user);
-		return new ModelAndView("user",model);
+		return new ModelAndView("user", model);
 	}
+
+	// Sales View Controller
+	@GetMapping("/sales")
+	public ModelAndView salesPage(Map<String, Object> model) {
+		List<Order> orders = orderService.getAllOrdersService();
+		Double totalRevenue = 0.0;
+		for(Order order : orders) {
+			totalRevenue = totalRevenue + order.getTotalPrice();
+		}
+		List<Product> products = productService.getAllProdutcsService();
+		int orderNumber = 0;
+		Product mostSoldProducts = new Product();
+		for(Product product : products) {
+			int productOrdered = 0;
+			List<ProductVarient> productVarients = product.getProductVarient();
+			for(ProductVarient productVarient : productVarients) {
+				List<Order> varientOrders = productVarient.getOrders();
+				productOrdered = productOrdered + varientOrders.size();
+			}
+			if(productOrdered > orderNumber) {
+				orderNumber = productOrdered;
+				mostSoldProducts = product;
+			}
+		}
+		model.put("totalRevenue", totalRevenue);
+		model.put("totalOrders", orders.size());
+		model.put("mostSoldProducts", mostSoldProducts);
+		model.put("mostOrderd", orderNumber);
+		return new ModelAndView("sales", model);
+	}
+
 }

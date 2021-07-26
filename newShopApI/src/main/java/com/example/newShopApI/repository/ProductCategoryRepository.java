@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.newShopApI.model.ProductCategory;
 
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
-	List<ProductCategory> findAllBycategoryName(String categoryName);
+	List<ProductCategory> findAllByCategoryName(String categoryName);
 }
