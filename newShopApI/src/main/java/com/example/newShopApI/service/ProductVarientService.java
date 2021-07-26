@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.newShopApI.exception.ResourceNotFoundException;
+import com.example.newShopApI.model.Product;
 import com.example.newShopApI.model.ProductVarient;
 import com.example.newShopApI.repository.ProductVarientRepository;
 
@@ -15,13 +16,17 @@ public class ProductVarientService {
 
 	@Autowired
 	ProductVarientRepository productVarientRepository;
+	@Autowired
+	ProductService productService;
 
 	public List<ProductVarient> getAllProdutcVarientService() {
 		return productVarientRepository.findAll();
 	}
 
 	public ProductVarient createProductVarientService(ProductVarient productVarient) {
-		return productVarientRepository.save(productVarient);
+		ProductVarient savedProductVarient = productVarientRepository.save(productVarient);
+		stockManagement(savedProductVarient);
+		return savedProductVarient;
 	}
 
 	public ProductVarient updateProductVarientService(Long productVarientId, ProductVarient productVarientDetails) {
@@ -34,8 +39,11 @@ public class ProductVarientService {
 			productVarient.setVarientDescription(productVarientDetails.getVarientDescription());
 		if (productVarientDetails.getPrice() != null)
 			productVarient.setPrice(productVarientDetails.getPrice());
-
+		if(productVarientDetails.getStock() != null)
+			productVarient.setStock(productVarientDetails.getStock());
+		
 		ProductVarient UpdatedproductVarient = productVarientRepository.save(productVarient);
+		stockManagement(UpdatedproductVarient);
 		return UpdatedproductVarient;
 	}
 
@@ -44,6 +52,7 @@ public class ProductVarientService {
 				.orElseThrow(() -> new ResourceNotFoundException("ProductVarient", "id", productVarientId));
 
 		productVarientRepository.delete(productVarient);
+		stockManagement(productVarient);
 
 		return ResponseEntity.ok().build();
 	}
@@ -56,5 +65,15 @@ public class ProductVarientService {
 	
 	public List<ProductVarient> findProductVarientByNameService(String varientName) {
 		return productVarientRepository.findAllByVarientName(varientName);
+	}
+	
+	public void stockManagement(ProductVarient productVarient) {
+		long totalStock = 0;
+		Product product = productVarient.getProduct();
+		for(ProductVarient prodVar : product.getProductVarient()) {
+			totalStock = totalStock + prodVar.getStock();
+		}
+		product.setStock(totalStock);
+		productService.updateProductService(product.getId(), product);
 	}
 }

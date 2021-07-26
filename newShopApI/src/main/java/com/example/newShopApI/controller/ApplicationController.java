@@ -132,6 +132,8 @@ public class ApplicationController {
 			product.setProductName(productDetails.getProductName());
 		if (productDetails.getProductDescription() != null)
 			product.setProductDescription(productDetails.getProductDescription());
+		if (productDetails.getStock() != null) 
+			product.setStock(productDetails.getStock());
 		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
 		if (productCategory.size() > 0) {
 			product.setProductCategory(productCategory.get(0));
@@ -196,6 +198,8 @@ public class ApplicationController {
 			productVarinet.setVarientDescription(productVarientDetails.getVarientDescription());
 		if (productVarientDetails.getPrice() != null)
 			productVarinet.setPrice(productVarientDetails.getPrice());
+		if (productVarientDetails.getStock() != null)
+			productVarinet.setStock(productVarientDetails.getStock());
 		if (product.size() > 0)
 			productVarinet.setProduct(product.get(0));
 		else {

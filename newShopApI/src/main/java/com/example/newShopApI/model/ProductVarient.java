@@ -34,6 +34,9 @@ public class ProductVarient {
 
 	@Column(name = "price", nullable = false)
 	private Double price;
+	
+	@Column(name = "stock", nullable = false)
+	private Long stock;
 
 	@ManyToOne
 	@JsonIgnore
@@ -48,12 +51,13 @@ public class ProductVarient {
 		
 	}
 
-	public ProductVarient(String varientName, String varientDescription, Double price, Product product,
+	public ProductVarient(String varientName, String varientDescription, Double price, Product product,Long stock,
 			List<Order> orders) {
 		super();
 		this.varientName = varientName;
 		this.varientDescription = varientDescription;
 		this.price = price;
+		this.stock = stock;
 		this.product = product;
 		this.orders = orders;
 	}
@@ -80,6 +84,14 @@ public class ProductVarient {
 
 	public void setVarientDescription(String varientDescription) {
 		this.varientDescription = varientDescription;
+	}
+	
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
 	}
 
 	public Product getProduct() {

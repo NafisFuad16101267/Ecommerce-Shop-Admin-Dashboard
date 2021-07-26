@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.newShopApI.exception.ResourceNotFoundException;
 import com.example.newShopApI.model.Order;
+import com.example.newShopApI.model.Product;
 import com.example.newShopApI.model.ProductVarient;
 import com.example.newShopApI.repository.OrderRepository;
 
@@ -21,6 +22,8 @@ public class OrderService {
 	ProductVarientService productVarientService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	ProductService productService;
 
 	public List<Order> getAllOrdersService() {
 		return orderRepository.findAll();
@@ -31,6 +34,8 @@ public class OrderService {
 		List<ProductVarient> productVarients = new ArrayList<ProductVarient>();
 		for(Long id : ids) {
 			ProductVarient productVarient = productVarientService.findProductVarientByIdService(id);
+			productVarient.setStock(productVarient.getStock() - 1);
+			productVarientService.updateProductVarientService(id, productVarient);
 			productVarients.add(productVarient);
 			totalPrice = totalPrice + productVarient.getPrice();
 		}
@@ -46,12 +51,24 @@ public class OrderService {
 	public Order updateOrderService(Long orderId, Order orderDetails) {
 		Order order = orderRepository.findById(orderId)
 				.orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
-		if (orderDetails.getProductVarients() != null)
+		List <ProductVarient> OldproductVarients = order.getProductVarients();
+		for (ProductVarient prodVar : OldproductVarients) {
+			prodVar.setStock(prodVar.getStock() + 1);
+			Product product = prodVar.getProduct();
+			product.setStock(product.getStock() + 1);
+			productService.updateProductService(product.getId(), product);
+		}
+		if (orderDetails.getProductVarients() != null) {
 			order.setProductVarients(orderDetails.getProductVarients());
+		}
 
 		List<ProductVarient> productVarients = order.getProductVarients();
 		double totalPrice = 0.0;
 		for (ProductVarient productVarient : productVarients) {
+			productVarient.setStock(productVarient.getStock() - 1);
+			Product product = productVarient.getProduct();
+			product.setStock(product.getStock() - 1);
+			productService.updateProductService(product.getId(), product);
 			totalPrice = totalPrice + productVarient.getPrice();
 		}
 		order.setTotalPrice(totalPrice);

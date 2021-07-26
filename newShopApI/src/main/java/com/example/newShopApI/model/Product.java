@@ -32,6 +32,9 @@ public class Product {
 
 	@Column(name = "product_icon", nullable = false, columnDefinition = "TEXT")
 	private String productIcon;
+	
+	@Column(name = "product_stock", nullable = false)
+	private Long stock;
 
 	@ManyToOne
 	private ProductCategory productCategory;
@@ -44,12 +47,13 @@ public class Product {
 		
 	}
 
-	public Product(String productName, String productDescription, String productIcon,
+	public Product(String productName, String productDescription, String productIcon, Long stock,
 			ProductCategory productCategory, List<ProductVarient> productVarient) {
 		super();
 		this.productName = productName;
 		this.productDescription = productDescription;
 		this.productIcon = productIcon;
+		this.stock = stock;
 		this.productCategory = productCategory;
 		this.productVarient = productVarient;
 	}
@@ -84,6 +88,14 @@ public class Product {
 
 	public void setProductIcon(String productIcon) {
 		this.productIcon = productIcon;
+	}
+	
+	public Long getStock() {
+		return stock;
+	}
+
+	public void setStock(Long stock) {
+		this.stock = stock;
 	}
 
 	public ProductCategory getProductCategory() {
