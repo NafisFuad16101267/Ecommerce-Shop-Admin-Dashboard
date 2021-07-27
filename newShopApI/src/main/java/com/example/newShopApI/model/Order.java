@@ -2,6 +2,7 @@ package com.example.newShopApI.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Order")
@@ -28,15 +30,19 @@ public class Order {
 	@ManyToOne
 	private User user;
 
+	@OneToOne
+	private Payment payment;
+
 	public Order() {
 
 	}
 
-	public Order(Double totalPrice, List<ProductVarient> productVarients, User user) {
+	public Order(Double totalPrice, List<ProductVarient> productVarients, User user, Payment payment) {
 		super();
 		this.totalPrice = totalPrice;
 		this.productVarients = productVarients;
 		this.user = user;
+		this.payment = payment;
 	}
 
 	public Long getId() {
@@ -69,6 +75,14 @@ public class Order {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 }

@@ -108,6 +108,7 @@
                             <th>user email</th>
                             <th>total_Price</th>
                             <th>Product Varient</th>
+                            <th>Payment</th>
                             <th>Action</th>
                         </tr>
                       </thead>
@@ -122,6 +123,7 @@
                             		{{varientName}},
                             	{{/productVarients}}
                         </td>
+                        <td>{{#payment}}Completed{{/payment}}</td>
                             <td> <button type="button" class="btn btn-danger btn-icon-text" onclick="sendDelete(event,{{id}})">
                               <i class="mdi mdi-delete"></i>  
                                   DELETE
@@ -130,12 +132,32 @@
 							    function sendDelete(event, orderId){
 							    	var xhttp = new XMLHttpRequest();
                     var result = confirm("Want to delete?");
-                    const ord = document.getElementById('{{id}}');
-                    if(result){
-                      ord.style.display = "none";
-                      xhttp.open("DELETE", "/admin/order/"+orderId, true);
-							        xhttp.send();
-                    }
+                    var paymentFlag = false;
+                    fetch("/api/orders")
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(order =>{
+                          if(order["id"] === orderId)
+                          {
+                            if(order["payment"] === null){
+                              paymentFlag = true;
+                            }
+                          }
+                          ;})
+                        ;})
+                      .then(function(){
+                        console.log(paymentFlag);
+                        const ord = document.getElementById(`${orderId}`);
+                        if(paymentFlag == false){
+                          alert("The Orders with Completed Payment cannot be deleted");
+                        }
+                        if(result & paymentFlag == true){
+                          ord.style.display = "none";
+                          console.log("here");
+                          xhttp.open("DELETE", "/admin/order/"+orderId, true);
+                          xhttp.send();
+                        }
+                      });
 							    }
 							</script>
 							<!-- Button trigger modal -->
