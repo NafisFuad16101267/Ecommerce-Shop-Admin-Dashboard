@@ -178,13 +178,13 @@
                                   DELETE
                               </button>
                             <script>
-                              function sendDeleteCatagory(event, catagoryId){
+                              function sendDeleteCatagory(event, varinetId){
                                 var xhttp = new XMLHttpRequest();
                                 var result = confirm("Want to delete?");
                                 const varient = document.getElementById('{{id}}');
                                 if(result){
                                   varient.style.display = "none";
-                                  xhttp.open("DELETE", "/admin/productCatagory/"+catagoryId, true);
+                                  xhttp.open("DELETE", "/admin/productVarient/"+varinetId, true);
                                   xhttp.send();
                                 }  
                               }

@@ -211,6 +211,12 @@ public class ApplicationController {
 		productVarientService.updateProductVarientService(productVarientDetails.getId(), productVarinet);
 		return new ModelAndView("redirect:/productVarients");
 	}
+	
+	@DeleteMapping("/admin/productVarient/{id}")
+	public ModelAndView deleteProductVarient(@PathVariable(value = "id") Long productVarientId) {
+		productVarientService.deleteProductVarientService(productVarientId);
+		return new ModelAndView("redirect:/productVarients");
+	}
 
 	// Order View Controller
 
