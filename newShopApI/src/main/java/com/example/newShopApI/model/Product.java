@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -26,7 +27,8 @@ public class Product {
 
 	@Column(name = "product_name", nullable = false, columnDefinition = "TEXT")
 	private String productName;
-
+	
+	@Lob
 	@Column(name = "product_description", nullable = false, columnDefinition = "TEXT")
 	private String productDescription;
 

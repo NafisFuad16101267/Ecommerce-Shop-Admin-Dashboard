@@ -137,6 +137,7 @@
                       <thead>
                         <tr>
                             <th>Category Name</th>
+                            <th>Activity</th>
                             <th>Action</th>
                         </tr>
                       </thead>
@@ -144,6 +145,14 @@
                       {{#productCategory}}
                         <tr id={{id}}>
 		                    <td> {{categoryName}} </td>
+                        <td>
+                            {{#categoryActivity}}
+                              Active
+                            {{/categoryActivity}}
+                            {{^categoryActivity}}
+                              Inactive
+                            {{/categoryActivity}}
+                        </td>
                         <td> <button type="button" class="btn btn-danger btn-icon-text" onclick="sendDeleteCatagory(event,{{id}})">
                           <i class="mdi mdi-delete"></i>
                           DELETE

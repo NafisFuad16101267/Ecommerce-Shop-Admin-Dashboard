@@ -107,23 +107,23 @@
                             <th>user name</th>
                             <th>user email</th>
                             <th>total_Price</th>
-                            <th>Product Varient</th>
-                            <th>Payment</th>
+                            <th> Order Time</th>
+                            <th>Order Status</th>
                             <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                       {{#orders}}
                         <tr id="{{id}}">
-                        <td>{{id}}</td>
+                        <td> {{id}} </td>
 		                    <td> {{user.userName}} </td>
 		                    <td> {{user.userEmail}} </td>		                    
-                        <td>{{totalPrice}}</td>
-                       	<td>{{#productVarients}}
-                            		{{varientName}},
-                            	{{/productVarients}}
+                        <td> {{totalPrice}} </td>
+                        <td> {{orderTime}} </td>
+                        <td>
+                          {{#payment}}Paid{{/payment}}
+                          {{^payment}}Orded | Not Paid{{/payment}}
                         </td>
-                        <td>{{#payment}}Completed{{/payment}}</td>
                             <td> <button type="button" class="btn btn-danger btn-icon-text" onclick="sendDelete(event,{{id}})">
                               <i class="mdi mdi-delete"></i>  
                                   DELETE
@@ -156,6 +156,7 @@
                           console.log("here");
                           xhttp.open("DELETE", "/admin/order/"+orderId, true);
                           xhttp.send();
+                          location.reload();
                         }
                       });
 							    }

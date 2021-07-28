@@ -31,6 +31,7 @@ public class ProductCategoryService {
 				.orElseThrow(() -> new ResourceNotFoundException("productCategory", "id", productCategoryId));
 
 		productCategory.setCategoryName(productCategoryDetails.getCategoryName());
+		productCategory.setCategoryActivity(productCategoryDetails.getCategoryActivity());
 
 		ProductCategory updatedProductCategory = productCategoryRepository.save(productCategory);
 		return updatedProductCategory;

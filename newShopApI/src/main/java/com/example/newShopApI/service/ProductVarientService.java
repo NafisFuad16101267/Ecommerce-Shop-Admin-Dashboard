@@ -26,6 +26,9 @@ public class ProductVarientService {
 	public ProductVarient createProductVarientService(ProductVarient productVarient) {
 		ProductVarient savedProductVarient = productVarientRepository.save(productVarient);
 		stockManagement(savedProductVarient);
+		Product parentProduct = savedProductVarient.getProduct();
+		parentProduct.setStock(parentProduct.getStock() + savedProductVarient.getStock());
+		productService.updateProductService(parentProduct.getId(), parentProduct);
 		return savedProductVarient;
 	}
 

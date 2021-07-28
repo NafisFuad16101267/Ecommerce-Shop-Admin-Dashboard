@@ -28,6 +28,9 @@ public class ProductCategory {
 
 	@Column(name = "productcategory_name", nullable = false, columnDefinition = "TEXT")
 	private String categoryName;
+	
+	@Column(name = "productcategory_activity", nullable = false, columnDefinition = "tinyint(1) default 1")
+	private Boolean categoryActivity;
 
 	@OneToMany(mappedBy = "productCategory", orphanRemoval = true, cascade = { CascadeType.PERSIST,
 			CascadeType.REMOVE }, fetch = FetchType.LAZY)
@@ -38,11 +41,12 @@ public class ProductCategory {
 		
 	}
 	
-	public ProductCategory(long id, String categoryName, List<Product> products) {
+	public ProductCategory(long id, String categoryName, Boolean categoryActivity, List<Product> products) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
 		this.products = products;
+		this.categoryActivity = categoryActivity;
 	}
 
 	public long getId() {
@@ -59,6 +63,14 @@ public class ProductCategory {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	
+	public Boolean getCategoryActivity() {
+		return categoryActivity;
+	}
+
+	public void setCategoryActivity(Boolean categoryActivity) {
+		this.categoryActivity = categoryActivity;
 	}
 
 	public List<Product> getProducts() {

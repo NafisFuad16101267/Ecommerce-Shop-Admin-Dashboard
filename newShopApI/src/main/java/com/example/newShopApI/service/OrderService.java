@@ -1,6 +1,8 @@
 package com.example.newShopApI.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,10 @@ public class OrderService {
 		order.setProductVarients(productVarients);
 		order.setUser(userService.findUserById(userId));
 		order.setTotalPrice(totalPrice);
+		
+		Date date = new Date(); 
+		Timestamp timeStamp = new Timestamp(date.getTime());
+		order.setOrderTime(timeStamp);
 
 		return orderRepository.save(order);
 	}

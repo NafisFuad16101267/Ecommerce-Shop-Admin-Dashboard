@@ -104,6 +104,22 @@
                       <label for="categoryName">Category Name</label>
                       <input type="text" class="form-control" id="categoryName" name="categoryName" value="{{categoryName}}" required>
                     </div>
+                    {{#categoryActivity}}
+                      <div class="form-group">
+                        <input type="radio" id="active" name="categoryActivity" value="1" checked>
+                        <label for="active">Active</label> &nbsp;
+                        <input type="radio" id="inactive" name="categoryActivity" value="0">
+                        <label for="inactice">Inactive</label>
+                      </div>
+                    {{/categoryActivity}}
+                    {{^categoryActivity}}
+                      <div class="form-group">
+                        <input type="radio" id="active" name="categoryActivity" value=true>
+                        <label for="active">Active</label> &nbsp;
+                        <input type="radio" id="inactive" name="categoryActivity" value=false checked>
+                        <label for="inactice">Inactive</label>
+                      </div>
+                    {{/categoryActivity}}
                     <button type="submit" class="btn btn-primary mr-2">Update</button>
                     <button class="btn btn-light" onclick="history.back()">Cancel</button>
                   {{/productCategory}}

@@ -1,5 +1,6 @@
 package com.example.newShopApI.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -100,6 +101,15 @@ public class ApplicationController {
 		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
 		if (productCategory.size() > 0) {
 			product.setProductCategory(productCategory.get(0));
+			ProductVarient productVarient = new ProductVarient();
+			productVarient.setProduct(product);
+			productVarient.setVarientName(product.getProductName());
+			productVarient.setVarientDescription(product.getProductDescription());
+			productVarient.setStock(product.getStock());
+			productVarient.setPrice(1.0);
+			List<ProductVarient> productVarients = new ArrayList<>();
+			productVarients.add(productVarient);
+			product.setProductVarient(productVarients);
 			productService.createProductService(product);
 			return new ModelAndView("redirect:/products");
 		} else {
@@ -132,7 +142,7 @@ public class ApplicationController {
 			product.setProductName(productDetails.getProductName());
 		if (productDetails.getProductDescription() != null)
 			product.setProductDescription(productDetails.getProductDescription());
-		if (productDetails.getStock() != null) 
+		if (productDetails.getStock() != null)
 			product.setStock(productDetails.getStock());
 		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
 		if (productCategory.size() > 0) {
@@ -162,9 +172,18 @@ public class ApplicationController {
 			@Valid @RequestBody @ModelAttribute("productVarient") ProductVarient productVarient,
 			@Valid @RequestBody @ModelAttribute("productName") String productName, Map<String, Object> model) {
 		List<Product> product = productService.findProductByName(productName);
-		if (product.size() > 0)
+		if (product.size() > 0) {
+			Product inputProduct = product.get(0);
+			if (inputProduct.getProductVarient().size() > 0) {
+				ProductVarient savedProductVarient = inputProduct.getProductVarient().get(0);
+				if (savedProductVarient.getVarientName().equals(inputProduct.getProductName())) {
+					inputProduct.setStock(
+							inputProduct.getStock() - savedProductVarient.getStock() + productVarient.getStock());
+					inputProduct.getProductVarient().remove(0);
+				}
+			}
 			productVarient.setProduct(product.get(0));
-		else {
+		} else {
 			String errorMessage = "Please enter a Product Name form the Suggestions";
 			model.put("errorMessage", errorMessage);
 			return new ModelAndView("error", model);
@@ -211,7 +230,7 @@ public class ApplicationController {
 		productVarientService.updateProductVarientService(productVarientDetails.getId(), productVarinet);
 		return new ModelAndView("redirect:/productVarients");
 	}
-	
+
 	@DeleteMapping("/admin/productVarient/{id}")
 	public ModelAndView deleteProductVarient(@PathVariable(value = "id") Long productVarientId) {
 		productVarientService.deleteProductVarientService(productVarientId);
@@ -247,20 +266,20 @@ public class ApplicationController {
 	public ModelAndView salesPage(Map<String, Object> model) {
 		List<Order> orders = orderService.getAllOrdersService();
 		Double totalRevenue = 0.0;
-		for(Order order : orders) {
+		for (Order order : orders) {
 			totalRevenue = totalRevenue + order.getTotalPrice();
 		}
 		List<Product> products = productService.getAllProdutcsService();
 		int orderNumber = 0;
 		Product mostSoldProducts = new Product();
-		for(Product product : products) {
+		for (Product product : products) {
 			int productOrdered = 0;
 			List<ProductVarient> productVarients = product.getProductVarient();
-			for(ProductVarient productVarient : productVarients) {
+			for (ProductVarient productVarient : productVarients) {
 				List<Order> varientOrders = productVarient.getOrders();
 				productOrdered = productOrdered + varientOrders.size();
 			}
-			if(productOrdered > orderNumber) {
+			if (productOrdered > orderNumber) {
 				orderNumber = productOrdered;
 				mostSoldProducts = product;
 			}
