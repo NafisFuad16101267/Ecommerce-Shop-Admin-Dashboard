@@ -44,10 +44,12 @@ public class ProductVarientService {
 			productVarient.setPrice(productVarientDetails.getPrice());
 		if(productVarientDetails.getStock() != null)
 			productVarient.setStock(productVarientDetails.getStock());
+		if(productVarientDetails.getProduct() != null)
+			productVarient.setProduct(productVarientDetails.getProduct());
 		
-		ProductVarient UpdatedproductVarient = productVarientRepository.save(productVarient);
-		stockManagement(UpdatedproductVarient);
-		return UpdatedproductVarient;
+		ProductVarient updatedproductVarient = productVarientRepository.save(productVarient);
+		stockManagement(updatedproductVarient);
+		return updatedproductVarient;
 	}
 
 	public ResponseEntity<?> deleteProductVarientService(Long productVarientId) {
@@ -67,7 +69,8 @@ public class ProductVarientService {
 	}
 	
 	public List<ProductVarient> findProductVarientByNameService(String varientName) {
-		return productVarientRepository.findAllByVarientName(varientName);
+		List<ProductVarient> productVarients = productVarientRepository.findAllByVarientName(varientName);
+		return productVarients;
 	}
 	
 	public void stockManagement(ProductVarient productVarient) {

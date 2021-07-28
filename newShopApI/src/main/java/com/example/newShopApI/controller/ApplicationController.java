@@ -155,6 +155,16 @@ public class ApplicationController {
 			return new ModelAndView("error", model);
 		}
 	}
+	
+	@GetMapping("/productDetails/{id}")
+	public ModelAndView productDetailsPage(Map<String, Object> model,
+			@PathVariable(value="id") Long id) {
+		Product product = productService.findProductByIdService(id);
+		List<ProductVarient> productVarients = product.getProductVarient();
+		model.put("product", product);
+		model.put("productVarients", productVarients);
+		return new ModelAndView("productDetails",model);
+	}
 
 	// Product Varient View Controller
 
@@ -206,7 +216,6 @@ public class ApplicationController {
 			@Valid @RequestBody @ModelAttribute("productName") String productName, Map<String, Object> model) {
 		ProductVarient productVarinet = productVarientService
 				.findProductVarientByIdService(productVarientDetails.getId());
-
 		List<Product> product = productService.findProductByName(productName);
 		if (product.size() < 1)
 			throw new ResourceNotFoundException("productName", "productName", productName);
@@ -226,9 +235,9 @@ public class ApplicationController {
 			model.put("errorMessage", errorMessage);
 			return new ModelAndView("error", model);
 		}
-
-		productVarientService.updateProductVarientService(productVarientDetails.getId(), productVarinet);
-		return new ModelAndView("redirect:/productVarients");
+		
+		productVarientService.updateProductVarientService(productVarinet.getId(), productVarinet);
+		return new ModelAndView("redirect:/productDetails/"+product.get(0).getId());
 	}
 
 	@DeleteMapping("/admin/productVarient/{id}")

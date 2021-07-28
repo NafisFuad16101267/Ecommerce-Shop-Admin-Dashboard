@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Majestic Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../vendors/base/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../../images/favicon.png" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="navbar-brand-wrapper d-flex justify-content-center">
+        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
+          <a class="navbar-brand brand-logo" href="/index"><img src="../../images/logo.svg" alt="logo"/></a>
+          <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../../images/logo-mini.svg" alt="logo"/></a>
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-sort-variant"></span>
+          </button>
+        </div>  
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/index">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="/productCategories">
+              <i class=" mdi mdi-file-tree menu-icon"></i>
+              <span class="menu-title">Categories</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/products">
+              <i class="mdi mdi-buffer menu-icon"></i>
+              <span class="menu-title">Products</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/orders">
+              <i class="mdi mdi-cart menu-icon"></i>
+              <span class="menu-title">Orders</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users">
+              <i class="mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-title">Users</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/productVarients">
+              <i class="mdi  mdi mdi-tune-vertical menu-icon"></i>
+              <span class="menu-title">Variant List</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sales">
+              <i class="mdi mdi-square-inc-cash menu-icon"></i>
+              <span class="menu-title">Sales</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">        
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Product Form</h4>
+                      {{#product}}
+                    <form class="forms-sample" action="/admin/UpdateProduct" method="POST" name="products" autocomplete="off">
+                        <div class="form-group" style="display: none;">
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" value="{{id}}" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="productName">Name</label>
+                        <input type="text" class="form-control" id="productName" name="productName" value="{{productName}}" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="productDescription">Description</label>
+                        <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{productDescription}}" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="productIcon">Product Icon</label>
+                        <input type="text" class="form-control" id="productIcon" name="productIcon" value="{{productIcon}}" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="number" class="form-control" id="stock" name="stock" value="{{stock}}" required disabled>
+                        </div>
+                        <div class="form-group">
+                        <label for="categoryName">Product Category Name</label>
+                        <input type="text" class="form-control" id="categoryName" name="categoryName" value="{{productCategory.categoryName}}" list="catList" required>
+                        <datalist id="catList">
+                            {{#prouctCategories}}
+                            <option>{{categoryName}}</option>>
+                            {{/prouctCategories}}
+                        </datalist>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Update</button>
+                        <button class="btn btn-light" onclick="history.back()">Cancel</button>
+                    </form> <br><br>
+                    {{/product}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card" id="varientdiv" style="visibility:hidden">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Product Varient Form</h4>
+                      <form class="forms-sample" action="/admin/UpdateProductVarinet" method="POST" name="productVarient" autocomplete="off">
+                        <div class="form-group" style="display: none;">
+                        <label for="varientid">Varient ID</label>
+                        <input type="text" class="form-control" id="varientid" name="id" value="{{id}}" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="id">Varient Name</label>
+                        <input type="text" class="form-control" id="varientName" name="varientName" value="" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="varientDescription">Varient Description</label>
+                        <input type="text" class="form-control" id="varientDescription" name="varientDescription" value="" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="text" class="form-control" id="varientprice" name="price" value="" required>
+                        </div>
+                        <div class="form-group">
+                        <label for="stock">Stock</label>
+                        <input type="text" class="form-control" id="varientstock" name="stock" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productNameVarient">Product Name</label>
+                            <input type="text" class="form-control" id="productNameVarienttName" name="productName" value="" required>
+                          </div>
+                        <button type="submit" class="btn btn-primary mr-2">Update</button>
+                        <button class="btn btn-light" onclick="hideForm(event)">Cancel</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                    <label for="varient">Choose a varient:</label>
+                    <select name="varient" id="varient">
+                        {{#productVarients}}
+                        <option value="{{varientName}}" onclick="OnSelectedIndexChange(event)">{{varientName}}</option>
+                        <script>
+                            function OnSelectedIndexChange(event){
+                                document.getElementById("varientdiv").style.visibility = "visible";
+                                var url = 'http://localhost:9090/api/productVarient2/'+event.target.value;
+                                console.log(url);
+                                fetch(url).then(response=>{
+                                    return response.json();
+                                }).then(data => {
+                                    let show = document.getElementById("show");
+                                    document.getElementById("varientid").value = data["id"];
+                                    document.getElementById("varientName").value = data["varientName"];
+                                    document.getElementById("varientDescription").value = data["varientDescription"];
+                                    document.getElementById("varientprice").value = data["price"];
+                                    document.getElementById("varientstock").value = data["stock"];
+                                    document.getElementById("productNameVarienttName").value = data["productName"].trim();
+                                    console.log(data);
+                                });
+                            }
+                        </script>
+                        {{/productVarients}}
+                    </select>
+                
+          </div>
+        </div>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../vendors/base/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/hoverable-collapse.js"></script>
+  <script src="../../js/template.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="../../js/file-upload.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>

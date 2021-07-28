@@ -1,6 +1,8 @@
 package com.example.newShopApI.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -46,8 +48,26 @@ public class ProductVarientController {
 		return productVarientService.deleteProductVarientService(productId);
 	}
 	
-	@GetMapping("/productVarient/{{varientName}}")
+	@GetMapping("/productVarient/{varientName}")
 	public List<ProductVarient> findProductVarientByName(@PathVariable(value = "varientName") String varientName) {
 		return productVarientService.findProductVarientByNameService(varientName);
+	}
+	
+	@GetMapping("/productVarient2/{varientName}")
+	public ResponseEntity<?> findProductVarientByNameForm(@PathVariable(value = "varientName") String varientName) {
+		ProductVarient productVarient = productVarientService.findProductVarientByNameService(varientName).get(0);
+		Map res = new HashMap<>();
+		res.put("id",productVarient.getId());
+		res.put("varientName",productVarient.getVarientName());
+		res.put("varientDescription",productVarient.getVarientDescription());
+		res.put("price",productVarient.getPrice());
+		res.put("stock",productVarient.getStock());
+		res.put("productName",productVarient.getProduct().getProductName());
+		return ResponseEntity.ok(res);
+	}
+	
+	@GetMapping("/productVarientId/{id}")
+	public ProductVarient findProductVarientByID(@PathVariable(value = "id") Long id) {
+		return productVarientService.findProductVarientByIdService(id);
 	}
 }
