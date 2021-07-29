@@ -21,6 +21,7 @@ public class ProductCategoryService {
 	}
 
 	public ProductCategory createProductCategoryService(ProductCategory productCategory) {
+		System.out.print(productCategory.getCategoryName());
 		return productCategoryRepository.save(productCategory);
 	}
 

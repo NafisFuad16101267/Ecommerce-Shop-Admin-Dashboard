@@ -92,39 +92,87 @@
                     <div class="card-body">
                       <h4 class="card-title">Product Form</h4>
                       {{#product}}
-                    <form class="forms-sample" action="/admin/UpdateProduct" method="POST" name="products" autocomplete="off">
+                    <form class="forms-sample" action="/admin/UpdateProduct" method="POST" name="products" autocomplete="off" enctype="multipart/form-data">
                         <div class="form-group" style="display: none;">
-                        <label for="id">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" value="{{id}}" required>
+                          <label for="id">ID</label>
+                          <input type="text" class="form-control" id="id" name="id" value="{{id}}" required>
                         </div>
-                        <div class="form-group">
-                        <label for="productName">Name</label>
+                          <div class="form-group">
+                          <label for="productName">Name</label>
                         <input type="text" class="form-control" id="productName" name="productName" value="{{productName}}" required>
                         </div>
                         <div class="form-group">
-                        <label for="productDescription">Description</label>
-                        <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{productDescription}}" required>
+                          <label for="productDescription">Description</label>
+                          <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{productDescription}}" required>
                         </div>
                         <div class="form-group">
-                        <label for="productIcon">Product Icon</label>
-                        <input type="text" class="form-control" id="productIcon" name="productIcon" value="{{productIcon}}" required>
+                          <label for="productIcon">Select an Image file:</label>
+                          <input type="file" id="productIcon" name="file"> 
                         </div>
                         <div class="form-group">
-                        <label for="stock">Stock</label>
-                        <input type="number" class="form-control" id="stock" name="stock" value="{{stock}}" required disabled>
+                          <label for="stock">Stock</label>
+                          <input type="number" class="form-control" id="stock" name="stock" value="{{stock}}" required disabled>
                         </div>
                         <div class="form-group">
-                        <label for="categoryName">Product Category Name</label>
-                        <input type="text" class="form-control" id="categoryName" name="categoryName" value="{{productCategory.categoryName}}" list="catList" required>
-                        <datalist id="catList">
-                            {{#prouctCategories}}
-                            <option>{{categoryName}}</option>>
-                            {{/prouctCategories}}
-                        </datalist>
+                          <label for="categoryName">Product Category Name</label>
+                          <input type="text" class="form-control" id="categoryName" name="categoryName" value="{{productCategory.categoryName}}" list="catList" required>
+                          <datalist id="catList">
+                              {{#prouctCategories}}
+                              <option>{{categoryName}}</option>>
+                              {{/prouctCategories}}
+                          </datalist>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Update</button>
                         <button class="btn btn-light" onclick="history.back()">Cancel</button>
                     </form> <br><br>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        <i class="mdi mdi-file-check btn-icon-prepend"></i>
+					    Create New Variant
+					</button>
+                    <!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Product Variant Input Form</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="card">
+                                  <div class="card-body">
+                                    <form class="forms-sample" action="/admin/productVarient" method="POST" name="productVarient" autocomplete="off">
+                                      <div class="form-group">
+                                        <label for="varientName">Variant Name</label>
+                                        <input type="text" class="form-control" id="modalvarientName" name="varientName" placeholder="Variant Name" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="varientName">Variant Description</label>
+                                        <input type="text" class="form-control" id="modalvarientDescription" name="varientDescription" placeholder="varient Description" required>
+                                      </div>
+                              <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="number" class="form-control" id="modalprice" name="price" placeholder="Price" step="0.01" required>
+                                      </div>
+                              <div class="form-group">
+                                        <label for="stock">Stock</label>
+                                        <input type="number" class="form-control" id="modalstock" name="stock" placeholder="stock" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="productName">Product Name</label>
+                                        <input type="text" class="form-control" id="modalproductName" value="{{productName}}" name="productName" placeholder="Product Name" required>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                              <button class="btn btn-light" data-dismiss="modal">Cancel</button>
+                                    </form>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     {{/product}}
                     </div>
                   </div>
@@ -182,7 +230,7 @@
                                     document.getElementById("varientDescription").value = data["varientDescription"];
                                     document.getElementById("varientprice").value = data["price"];
                                     document.getElementById("varientstock").value = data["stock"];
-                                    document.getElementById("productNameVarienttName").value = data["productName"].trim();
+                                    document.getElementById("productNameVarienttName").value = data["productName"];
                                     console.log(data);
                                 });
                             }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.newShopApI.exception.ResourceNotFoundException;
@@ -97,7 +99,8 @@ public class ApplicationController {
 
 	@PostMapping("/admin/product")
 	public ModelAndView createNewProduct(@Valid @RequestBody @ModelAttribute("product") Product product,
-			@Valid @RequestBody @ModelAttribute("categoryName") String categoryName, Map<String, Object> model) {
+			@Valid @RequestBody @ModelAttribute("categoryName") String categoryName, 
+			@RequestParam("file") MultipartFile file, Map<String, Object> model) {
 		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
 		if (productCategory.size() > 0) {
 			product.setProductCategory(productCategory.get(0));
@@ -110,7 +113,7 @@ public class ApplicationController {
 			List<ProductVarient> productVarients = new ArrayList<>();
 			productVarients.add(productVarient);
 			product.setProductVarient(productVarients);
-			productService.createProductService(product);
+			productService.createProductService(product, file);
 			return new ModelAndView("redirect:/products");
 		} else {
 			String errorMessage = "Please Enter a Product Category form suggestion";
@@ -144,6 +147,8 @@ public class ApplicationController {
 			product.setProductDescription(productDetails.getProductDescription());
 		if (productDetails.getStock() != null)
 			product.setStock(productDetails.getStock());
+		if(productDetails.getProductIcon() != null)
+			product.setProductIcon(productDetails.getProductIcon());
 		List<ProductCategory> productCategory = productCategoryService.searchByName(categoryName);
 		if (productCategory.size() > 0) {
 			product.setProductCategory(productCategory.get(0));

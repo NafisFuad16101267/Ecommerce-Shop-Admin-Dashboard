@@ -92,7 +92,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Product Update Form</h4>
                   {{#product}}
-                  <form class="forms-sample" action="/admin/UpdateProduct" method="POST" name="products" autocomplete="off">
+                  <form class="forms-sample" action="/admin/UpdateProduct" method="POST" name="products" enctype="multipart/form-data" autocomplete="off">
                   	<div class="form-group" style="display: none;">
                       <label for="id">ID</label>
                       <input type="text" class="form-control" id="id" name="id" value="{{id}}" required>
@@ -106,8 +106,8 @@
                       <input type="text" class="form-control" id="productDescription" name="productDescription" value="{{productDescription}}" required>
                     </div>
                     <div class="form-group">
-                      <label for="productIcon">Product Icon</label>
-                      <input type="text" class="form-control" id="productIcon" name="productIcon" value="{{productIcon}}" required>
+                      <label for="productIcon">Select an Image file:</label>
+                      <input type="file" id="productIcon" name="file"> 
                     </div>
                     <div class="form-group">
                       <label for="stock">Stock</label>

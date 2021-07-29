@@ -117,7 +117,7 @@
 					      <div class="modal-body">
 					        <div class="card">
 				                <div class="card-body">
-				                  <form class="forms-sample" action="/admin/product" method="POST" name="products" autocomplete="off">
+				                  <form class="forms-sample" action="/admin/product" method="POST" name="products" autocomplete="off" enctype="multipart/form-data">
 				                    <div class="form-group">
 				                      <label for="productName">Product Name</label>
 				                      <input type="text" class="form-control" id="productName" name="productName" placeholder="product name" required>
@@ -127,8 +127,8 @@
 				                      <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="product description" required>
 				                    </div>
 				                    <div class="form-group">
-				                      <label for="productIcon">Product Icon Url</label>
-				                      <input type="text" class="form-control" id="productIcon" name="productIcon" placeholder="Product Icon Url" required>
+                              <label for="productIcon">Select an Image file:</label>
+                              <input type="file" id="productIcon" name="file"> 
 				                    </div>
                             <div class="form-group">
 				                      <label for="stock">Stock</label>
@@ -177,7 +177,7 @@
                             <td>{{productCategory.categoryName}}</td>
                             <td>{{productDescription}}</td>
                             <td>{{stock}}</td>
-                            <td> <img src="{{productIcon}}" alt="Product Icon" width="50" height="60"> </td>
+                            <td> <img alt="" src="data:image/jpeg;base64,{{productIcon}}" style="width: 100px;height: 100px;"> </td>
                             <td> <button type="button" class="btn btn-danger btn-icon-text" onClick="sendDeleteProduct(event,{{id}})">
                               <i class="mdi mdi-delete"></i>
                               DELETE
@@ -199,6 +199,10 @@
                             	<button type="button" class="btn btn-dark btn-icon-text" onClick="window.location.href = '/admin/product/{{id}}'">
                                 <i class="mdi mdi-grease-pencil"></i> 
                                 UPDATE
+                              </button>
+                              <button type="button" class="btn btn-info btn-icon-text" onClick="window.location.href = '/productDetails/{{id}}'">
+                                <i class="mdi mdi-account-card-details"></i>
+                                DETAILS
                               </button>
                             </td>
                         </tr>

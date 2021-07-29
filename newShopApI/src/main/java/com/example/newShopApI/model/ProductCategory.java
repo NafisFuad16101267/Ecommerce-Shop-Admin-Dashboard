@@ -29,7 +29,7 @@ public class ProductCategory {
 	@Column(name = "productcategory_name", nullable = false, columnDefinition = "TEXT")
 	private String categoryName;
 	
-	@Column(name = "productcategory_activity", nullable = false, columnDefinition = "tinyint(1) default 1")
+	@Column(name = "productcategory_activity", nullable = true, columnDefinition = "boolean default true")
 	private Boolean categoryActivity;
 
 	@OneToMany(mappedBy = "productCategory", orphanRemoval = true, cascade = { CascadeType.PERSIST,

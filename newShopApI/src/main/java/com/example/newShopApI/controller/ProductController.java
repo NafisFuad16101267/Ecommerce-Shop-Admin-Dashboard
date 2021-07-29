@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.newShopApI.model.Product;
 import com.example.newShopApI.service.ProductService;
@@ -31,8 +33,9 @@ public class ProductController {
 	}
 
 	@PostMapping("/products")
-	public Product createProduct(@Valid @RequestBody Product product) {
-		return productService.createProductService(product);
+	public Product createProduct(@Valid @RequestBody Product product,
+			@RequestParam("file") MultipartFile file) {
+		return productService.createProductService(product,file);
 	}
 
 	@PutMapping("/products/{id}")

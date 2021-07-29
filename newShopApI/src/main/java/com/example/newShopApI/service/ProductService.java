@@ -1,10 +1,14 @@
 package com.example.newShopApI.service;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.newShopApI.exception.ResourceNotFoundException;
 import com.example.newShopApI.model.Product;
@@ -20,7 +24,17 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 
-	public Product createProductService(Product product) {
+	public Product createProductService(Product product, MultipartFile file) {
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		if(fileName.contains(".."))
+		{
+			System.out.println("not a a valid file");
+		}
+		try {
+			product.setProductIcon(Base64.getEncoder().encodeToString(file.getBytes()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return productRepository.save(product);
 	}
 
@@ -32,6 +46,7 @@ public class ProductService {
 		product.setProductName(productDetails.getProductName());
 		product.setProductDescription(productDetails.getProductDescription());
 		product.setStock(productDetails.getStock());
+		product.setProductIcon(productDetails.getProductIcon());
 
 		Product updatedProduct = productRepository.save(product);
 		return updatedProduct;

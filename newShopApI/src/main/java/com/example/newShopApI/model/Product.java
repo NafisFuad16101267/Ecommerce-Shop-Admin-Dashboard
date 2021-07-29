@@ -32,7 +32,8 @@ public class Product {
 	@Column(name = "product_description", nullable = false, columnDefinition = "TEXT")
 	private String productDescription;
 
-	@Column(name = "product_icon", nullable = false, columnDefinition = "TEXT")
+	@Lob
+    @Column(name="product_icon", nullable=false, columnDefinition="MEDIUMBLOB")
 	private String productIcon;
 	
 	@Column(name = "product_stock", nullable = false)
