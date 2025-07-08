@@ -298,6 +298,11 @@ public class ApplicationController {
 				mostSoldProducts = product;
 			}
 		}
+
+		if(mostSoldProducts.getProductName() == null){
+			mostSoldProducts.setProductName("");
+		}
+
 		model.put("totalRevenue", totalRevenue);
 		model.put("totalOrders", orders.size());
 		model.put("mostSoldProducts", mostSoldProducts);
